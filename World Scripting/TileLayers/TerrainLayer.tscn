@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bpienjcws4ax2"]
+
+[ext_resource type="Script" uid="uid://dhi2ghwc3xosu" path="res://World Scripting/TileLayers/TerrainLayerScript.gd" id="1_rmi2w"]
+
+[node name="TerrainLayer" type="TileMapLayer" unique_id=1755938437]
+script = ExtResource("1_rmi2w")
+metadata/_custom_type_script = "uid://dmjplxabqdwju"

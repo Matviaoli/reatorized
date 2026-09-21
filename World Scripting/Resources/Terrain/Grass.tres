@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainTile" format=3 uid="uid://chbuhenueubc4"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://World Scripting/Resources/Definers/TerrainTilesDefinition.gd" id="1_wgx4w"]
+
+[resource]
+script = ExtResource("1_wgx4w")
+buildable = true
+blastResistance = 5
+display_name = "Grass"
+description = "A plane field cover with grass, good for most of the reactors"
+metadata/_custom_type_script = "uid://kc4d8af6ndkm"

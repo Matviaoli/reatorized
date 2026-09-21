@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ReactorStructure" format=3 uid="uid://d35do3xjbilyj"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://World Scripting/Resources/Definers/TerrainTilesDefinition.gd" id="1_cuud1"]
+[ext_resource type="Script" uid="uid://bws6uplw7awhc" path="res://World Scripting/Resources/Definers/Structures/ReactorStructure.gd" id="2_7wsph"]
+[ext_resource type="Resource" uid="uid://chbuhenueubc4" path="res://World Scripting/Resources/Terrain/Grass.tres" id="2_web0c"]
+
+[resource]
+script = ExtResource("2_7wsph")
+energyProduction = 1.0
+passiveDissipation = -1.0
+type = 1
+price = 10.0
+allowedTerrains = Array[ExtResource("1_cuud1")]([ExtResource("2_web0c")])
+display_name = "Wind Turbine"
+description = "A Wind Turbine, produces low energy"
+metadata/_custom_type_script = "uid://bws6uplw7awhc"
