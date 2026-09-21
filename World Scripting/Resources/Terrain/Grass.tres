@@ -9,4 +9,5 @@ blastResistance = 5
 id = &"grass"
 display_name = "Grass"
 description = "A plane field cover with grass, good for most of the reactors"
+atlas_coords = Vector2i(1, 2)
 metadata/_custom_type_script = "uid://kc4d8af6ndkm"

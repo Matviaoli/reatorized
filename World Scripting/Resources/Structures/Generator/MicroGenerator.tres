@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GeneratorStructure" format=3 uid="uid://c3edbjnwh6x1k"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://World Scripting/Resources/Definers/TerrainTilesDefinition.gd" id="1_rtjcg"]
+[ext_resource type="Script" uid="uid://bqpgegfy4cg57" path="res://World Scripting/Resources/Definers/Structures/GeneratorStructure.gd" id="2_4kekw"]
+
+[resource]
+script = ExtResource("2_4kekw")
+heatConvert = 50.0
+price = 10.0
+explosionPower = 2.0
+id = &"MicroGenerator"
+display_name = "Micro Generator"
+description = "The world smallest generator"
+atlas_coords = Vector2i(3, 15)
+metadata/_custom_type_script = "uid://bqpgegfy4cg57"

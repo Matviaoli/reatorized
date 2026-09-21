@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OfficeStructure" format=3 uid="uid://jgcs262su4g7"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://World Scripting/Resources/Definers/TerrainTilesDefinition.gd" id="1_qj27p"]
+[ext_resource type="Script" uid="uid://dtufvwg10bylj" path="res://World Scripting/Resources/Definers/Structures/OfficeStructure.gd" id="2_6hhc3"]
+
+[resource]
+script = ExtResource("2_6hhc3")
+energyConvert = 100.0
+price = 500.0
+id = &"HomeOffice"
+display_name = "Home Office"
+description = "A room with one contability nerd"
+atlas_coords = Vector2i(2, 15)
+metadata/_custom_type_script = "uid://dtufvwg10bylj"

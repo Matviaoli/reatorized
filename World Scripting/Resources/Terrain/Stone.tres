@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainTile" format=3 uid="uid://dg62barm30tf6"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://World Scripting/Resources/Definers/TerrainTilesDefinition.gd" id="1_e0tdu"]
+
+[resource]
+script = ExtResource("1_e0tdu")
+buildable = true
+id = &"Stone"
+display_name = "Stone"
+atlas_coords = Vector2i(5, 2)
+metadata/_custom_type_script = "uid://kc4d8af6ndkm"
