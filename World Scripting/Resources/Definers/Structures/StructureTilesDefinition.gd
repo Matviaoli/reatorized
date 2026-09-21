@@ -28,7 +28,7 @@ enum structureType{
 @export var type := structureType.NONE
 @export var purchasable := true
 @export var price := 0.0
-@export var blastResistence := 1.0
+@export var blastResistance := 1.0
 @export var explosionPower := -1.0
-@export var maxHeatCapacit := -1.0
+@export var maxHeat := -1.0  # -1 = nunca superaquece
 @export var allowedTerrains: Array[TerrainTile]

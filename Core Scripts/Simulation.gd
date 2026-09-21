@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 	_acc += delta
 	while _acc >= TICK:
 		_acc -= TICK
-		tick()
+		_tick()
 
 
 # ====================
@@ -85,7 +85,7 @@ func _convert_heat() -> void:
 			continue
 		
 		var capacity := gen.heatConvert * TICK
-		for n in structure.get_surrounding_cells(cell):
+		for n in structures.get_surrounding_cells(cell):
 			if capacity <= 0.0:
 				break
 			
@@ -107,7 +107,7 @@ func _check_overheat() -> void:
 		
 		var def := structures.get_definition_at(cell) as StructureTile
 		
-		if structures.heat[cell] > def.maxHeat:
+		if def.maxHeat >= 0.0 and structures.heat[cell] > def.maxHeat:
 			overheated.append(cell)
 	
 	for cell in overheated:
@@ -200,5 +200,5 @@ func explode(origin: Vector2i) -> void:
 				
 				var force := power - Vector2(dx, dy).length()
 				
-				if force > victim.blastResistence:
+				if force > victim.blastResistance:
 					queue.append(target)

@@ -6,6 +6,7 @@
 script = ExtResource("1_wgx4w")
 buildable = true
 blastResistance = 5
+id = &"grass"
 display_name = "Grass"
 description = "A plane field cover with grass, good for most of the reactors"
 metadata/_custom_type_script = "uid://kc4d8af6ndkm"

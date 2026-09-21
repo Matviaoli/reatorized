@@ -6,6 +6,13 @@ extends StructureTile
 
 
 # ====================
+# Wake up
+# ====================
+func _init() -> void:
+	type = structureType.SUPPORT
+
+
+# ====================
 # Data
 # ====================
-#... well
+# ... well

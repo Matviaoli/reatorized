@@ -11,6 +11,7 @@ passiveDissipation = -1.0
 type = 1
 price = 10.0
 allowedTerrains = Array[ExtResource("1_cuud1")]([ExtResource("2_web0c")])
+id = &"windTurbine"
 display_name = "Wind Turbine"
 description = "A Wind Turbine, produces low energy"
 metadata/_custom_type_script = "uid://bws6uplw7awhc"

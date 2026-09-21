@@ -11,57 +11,102 @@ extends TileMapLayer
 # Source ID
 const SOURCE_ID := 0 
 
+
+# ====================
 # Data
+# ====================
+@export_dir var definitions_folder: String
+
+var definitions:= {}
 var data := {}
 
 
 # ====================
-# Sobresescrever
+# Wake up
 # ====================
-# Atlas Coords
-func _atlas_coords(_type: int) -> Vector2i:
-	return Vector2i.ZERO
+func _ready() -> void:
+	if definitions_folder.is_empty():
+		push_warning("%s: definitions_folder não foi configurada" % name)
+		return
+	
+	_load_definitions(definitions_folder)
 
-# Can Place
+# --- load definitions ---
+func _load_definitions(folder: String) -> void:
+	for file in DirAccess.get_files_at(folder):
+		var fname := file.trim_suffix(".remap")
+		
+		if not fname.ends_with(".tres"):
+			continue
+		
+		var path := folder.path_join(fname)
+		var def := load(path) as TileDefinition
+		
+		if def == null:
+			continue
+		
+		if def.id == &"":
+			push_warning("Definição sem ID: " + path)
+			continue
+		
+		if definitions.has(def.id):
+			push_warning("Id repetido '%s': %s" % [def.id, path])
+			continue
+		
+		definitions[def.id] = def
+	
+	for sub in DirAccess.get_directories_at(folder):
+		_load_definitions(folder.path_join(sub))
+
+
+# ====================
+# Consults
+# ====================
+func get_definition(id: StringName) -> TileDefinition:
+	return definitions.get(id)
+
+func get_definition_at(cell: Vector2i) -> TileDefinition:
+	return definitions.get(data.get(cell))
+
+
+# ====================
+# Overwrite
+# ====================
 func can_place(cell: Vector2i, id: StringName) -> bool:
-	return not data.has(cell)
+	return definitions.has(id) and not data.has(cell)
 
 
 # ====================
-# Comum Behaviour
+# Comum behaviour
 # ====================
-# Place
 func place(cell: Vector2i, id: StringName) -> bool:
 	if not can_place(cell, id):
 		return false
-		
+	
 	_apply_cell(cell, id)
 	return true
 
-# Apply cell
-func _apply_cell(cell: Vector2i, type: int) -> void:
-	data[cell] = type
-	set_cell(cell, SOURCE_ID, _atlas_coords(type))
+func _apply_cell(cell: Vector2i, id: StringName) -> void:
+	data[cell] = id
+	set_cell(cell, SOURCE_ID, definitions[id].atlas_coords)
 
-# Remove
 func remove(cell: Vector2i) -> void:
 	data.erase(cell)
 	erase_cell(cell)
 
-# Clear all
 func clear_all() -> void:
 	data.clear()
 	clear()
 
-# To save data
 func to_save_data() -> Array:
 	var out := []
 	for cell in data:
-		out.append([cell.x, cell.y, data[cell]])
+		out.append([cell.x, cell.y, String(data[cell])])
 	return out
 
-# From save data
 func from_save_data(entries: Array) -> void:
 	clear_all()
 	for e in entries:
-		_apply_cell(Vector2i(int(e[0]), int(e[1])), int(e[2]))
+		var id := StringName(str(e[2]))
+		if definitions.has(id):  
+			_apply_cell(Vector2i(int(e[0]), int(e[1])), id)
