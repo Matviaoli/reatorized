@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcsu0pb8778tq"
-path="res://.godot/imported/StructuresTileMapBeta.png-37554e4dde02b83f64cfc37955479531.ctex"
+path="res://.godot/imported/StructuresTileMapBeta.png-a9da121be911dc65f7ec397eac6ff6ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Terrain/StructuresTileMapBeta.png"
-dest_files=["res://.godot/imported/StructuresTileMapBeta.png-37554e4dde02b83f64cfc37955479531.ctex"]
+source_file="res://Visual/TileMaps/StructuresTileMapBeta.png"
+dest_files=["res://.godot/imported/StructuresTileMapBeta.png-a9da121be911dc65f7ec397eac6ff6ee.ctex"]
 
 [params]
 

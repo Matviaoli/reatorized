@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://geeii4hapn83"]
+
+[ext_resource type="Script" uid="uid://bm4o1785aemtx" path="res://Scripts/World Scripts/WorldBaseScript.gd" id="1_rh28a"]
+[ext_resource type="Script" uid="uid://dhi2ghwc3xosu" path="res://Scripts/TileLayer/TerrainLayerScript.gd" id="2_muycy"]
+[ext_resource type="Script" uid="uid://iawtu5n6c5kc" path="res://Scripts/TileLayer/StructureLayerScript.gd" id="3_3ew7b"]
+[ext_resource type="Script" uid="uid://c8l65r1bgp211" path="res://Scripts/World Scripts/Buildinput.gd" id="4_kndof"]
+[ext_resource type="Script" uid="uid://dkp0s7eawn1n5" path="res://Scripts/Core Scripts/Simulation.gd" id="5_fol7u"]
+
+[node name="WorldBase" type="Node2D" unique_id=1172933271]
+script = ExtResource("1_rh28a")
+
+[node name="TerrainLayer" type="TileMapLayer" parent="." unique_id=1208974129]
+script = ExtResource("2_muycy")
+metadata/_custom_type_script = "uid://dhi2ghwc3xosu"
+
+[node name="StructureLayer" type="TileMapLayer" parent="." unique_id=1711252535]
+script = ExtResource("3_3ew7b")
+metadata/_custom_type_script = "uid://iawtu5n6c5kc"
+
+[node name="BuildInput" type="Node" parent="." unique_id=807305526]
+script = ExtResource("4_kndof")
+metadata/_custom_type_script = "uid://c8l65r1bgp211"
+
+[node name="Simulation" type="Node" parent="." unique_id=1749254490]
+script = ExtResource("5_fol7u")
+metadata/_custom_type_script = "uid://dkp0s7eawn1n5"
