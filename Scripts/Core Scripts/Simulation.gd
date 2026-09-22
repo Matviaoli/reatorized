@@ -26,6 +26,15 @@ const TICK = 1.0
 # ====================
 # Variables
 # ====================
+const DAYCYCLE := 3600
+const HOUR := 150
+const INITIALTIME := 900
+const TIMECONVERTION := 12
+
+var time := 0
+var days := 1
+var clock := [0, 0]
+
 var energy := 0.0
 var maxEnergy := 500.0
 var money := 0.0
@@ -57,7 +66,26 @@ func _tick() -> void:
 	_check_overheat()
 	_sell()
 	_clean_and_research()
+	_time_processing()
 	energy = minf(energy, maxEnergy)
+
+
+# ====================
+# Time processing
+# ====================
+func _time_processing() -> void:
+	time += TICK * TIMECONVERTION
+	if time > DAYCYCLE:
+		time -= DAYCYCLE
+		days += 1
+	
+	clock[0] = int(time / (DAYCYCLE / 24) )
+	
+	if 10 > int((time % (DAYCYCLE / 24)) / (DAYCYCLE / 24 / 60)):
+		clock[1] = 0
+	
+	elif clock[1] + 10 <= int((time % (DAYCYCLE / 24)) / (DAYCYCLE / 24 / 60)):
+		clock[1] += 10
 
 
 # ====================
