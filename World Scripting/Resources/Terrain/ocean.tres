@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_pwa6y")
 aquatic = true
-id = &"Ocean"
+id = &"ocean"
 display_name = "Ocean"
 metadata/_custom_type_script = "uid://kc4d8af6ndkm"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TerrainTile" format=3 uid="uid://byaqpsb51w3bj"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://World Scripting/Resources/Definers/TerrainTilesDefinition.gd" id="1_j50jx"]
+
+[resource]
+script = ExtResource("1_j50jx")
+buildable = true
+id = &"grass_border"
+display_name = "Grass Border"
+atlas_coords = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://kc4d8af6ndkm"

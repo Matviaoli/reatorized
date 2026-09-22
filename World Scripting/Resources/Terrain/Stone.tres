@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_e0tdu")
 buildable = true
-id = &"Stone"
+id = &"stone"
 display_name = "Stone"
 atlas_coords = Vector2i(5, 2)
 metadata/_custom_type_script = "uid://kc4d8af6ndkm"
