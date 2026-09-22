@@ -1,21 +1,8 @@
 [gd_scene format=3 uid="uid://dwsahqykojjuu"]
 
-[ext_resource type="Texture2D" uid="uid://bcsu0pb8778tq" path="res://Visual/TileMaps/StructuresTileMapBeta.png" id="1_cb1ac"]
 [ext_resource type="Script" uid="uid://iawtu5n6c5kc" path="res://Scripts/TileLayer/StructureLayerScript.gd" id="1_oj6om"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mkbg"]
-texture = ExtResource("1_cb1ac")
-0:14/0 = 0
-1:14/0 = 0
-0:15/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-3:15/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_7y2nc"]
-sources/0 = SubResource("TileSetAtlasSource_7mkbg")
-
 [node name="StructureLayer" type="TileMapLayer" unique_id=454603130]
-tile_set = SubResource("TileSet_7y2nc")
 script = ExtResource("1_oj6om")
+definitions_folder = "res://Objects/Structures"
 metadata/_custom_type_script = "uid://dmjplxabqdwju"
