@@ -8,7 +8,8 @@ extends StructureTile
 # ====================
 # Data
 # ====================
-@export var heatConvert := 0.0
+@export var heatConvertMantissa := 0.0
+@export var heatConvertExponent := 0.0
 
 
 # ====================
@@ -16,3 +17,10 @@ extends StructureTile
 # ====================
 func _init() -> void:
 	type = structureType.GENERATOR
+
+
+# ====================
+# Get heat convert
+# ====================
+func get_heat_convert() -> OverInfinity:
+	return OverInfinity.to_load([heatConvertMantissa, heatConvertExponent])

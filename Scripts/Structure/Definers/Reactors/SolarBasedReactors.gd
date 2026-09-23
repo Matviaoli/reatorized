@@ -25,6 +25,7 @@ enum ProductionType {
 # Wake up
 # ====================
 func _init() -> void:
+	super()
 	type = structureType.REACTOR
 
 
@@ -32,37 +33,37 @@ func _init() -> void:
 # Heat/Energy output
 # ====================
 # --- heat ---
-func get_heat_output(daylight: float) -> float:
+func get_heat_output(daylight: float) -> OverInfinity:
 	match productionType:
 		ProductionType.STABLE:
-			return heatProduction
+			return OverInfinity.to_load([heatProductionMantissa, heatProductionExponent])
 		
 		ProductionType.SOLAR:
-			return heatProduction * maxf(0.0, daylight)
+			return OverInfinity.to_load([heatProductionMantissa, heatProductionExponent]).multiply_scalar(maxf(0.0, daylight))
 		
 		ProductionType.LUNAR:
-			return heatProduction * maxf(0.0, -daylight)
+			return OverInfinity.to_load([heatProductionMantissa, heatProductionExponent]).multiply_scalar(maxf(0.0, -daylight))
 		
 		ProductionType.TWILIGHTER:
-			return heatProduction * (1.0 - abs(daylight * 5)) 
+			return OverInfinity.to_load([heatProductionMantissa, heatProductionExponent]).multiply_scalar(maxf(0.0,(1.0 - abs(daylight * 5)) / 5))
 		
 		_:
-			return heatProduction
+			return OverInfinity.to_load([heatProductionMantissa, heatProductionExponent])
 
 # --- energy ---
-func get_energy_output(daylight: float) -> float:
+func get_energy_output(daylight: float) -> OverInfinity:
 	match productionType:
 		ProductionType.STABLE:
-			return energyProduction
+			return OverInfinity.to_load([energyProductionMantissa, energyProductionExponent])
 		
 		ProductionType.SOLAR:
-			return energyProduction * maxf(0.0, daylight)
+			return OverInfinity.to_load([energyProductionMantissa, energyProductionExponent]).multiply_scalar(maxf(0.0, daylight))
 		
 		ProductionType.LUNAR:
-			return energyProduction * maxf(0.0, -daylight)
+			return OverInfinity.to_load([energyProductionMantissa, energyProductionExponent]).multiply_scalar(maxf(0.0, -daylight))
 		
 		ProductionType.TWILIGHTER:
-			return energyProduction * maxf(0.0,(1.0 - abs(daylight * 5)))
+			return OverInfinity.to_load([energyProductionMantissa, energyProductionExponent]).multiply_scalar(maxf(0.0,(1.0 - abs(daylight * 5)) / 5))
 		
 		_:
-			return energyProduction
+			return OverInfinity.to_load([energyProductionMantissa, energyProductionExponent])

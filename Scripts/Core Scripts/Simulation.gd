@@ -44,14 +44,14 @@ var time := 0
 var days := 1
 var clock := [0, 0]
 
-var energy := 0.0
-var maxEnergy := 500.0
-var money := 0.0
+var energy := OverInfinity.zero()
+var maxEnergy := OverInfinity.from_float(500.0)
+var money := OverInfinity.zero()
 var GlobalPollution := 0.0
-var science := 0.0
+var science := OverInfinity.zero()
 var energyPrice := 1.0
 var heatToEnergy := 1.0
-var credit := 0.0
+var credit := OverInfinity.zero()
 
 var _acc := 0.0
 
@@ -76,10 +76,12 @@ func _tick() -> void:
 	_sell()
 	_clean_and_research()
 	_time_processing()
-	energy = minf(energy, maxEnergy)
+	if (energy.geater(maxEnergy)):
+		energy.mantissa = maxEnergy.mantissa
+		energy.exponent = maxEnergy.exponent
 	
 	if infinity_money:
-		money = 1999999999
+		money.exponent = 999999999
 
 
 # ====================
