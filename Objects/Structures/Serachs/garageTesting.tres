@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SearchStructure" format=3 uid="uid://dun7sytoteaj"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_3tsqn"]
+[ext_resource type="Script" uid="uid://cv0e3rxnjub5v" path="res://Scripts/Structure/Definers/SearchStructure.gd" id="2_4bbf3"]
+
+[resource]
+script = ExtResource("2_4bbf3")
+sciencePoints = 10.0
+type = 2
+price = 190.0
+id = &"garage_testing"
+display_name = "Garage Testing"
+atlas_coords = Vector2i(0, 14)
+metadata/_custom_type_script = "uid://cv0e3rxnjub5v"

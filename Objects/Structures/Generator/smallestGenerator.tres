@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="GeneratorStructure" format=3 uid="uid://du71nnygbxy25"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_31vg5"]
+[ext_resource type="Script" uid="uid://bqpgegfy4cg57" path="res://Scripts/Structure/Definers/GeneratorStructure.gd" id="2_8d3h7"]
+
+[resource]
+script = ExtResource("2_8d3h7")
+heatConvert = 100.0
+type = 6
+price = 10.0
+id = &"smalest_generator"
+display_name = "Smallest Generator"
+atlas_coords = Vector2i(3, 15)
+metadata/_custom_type_script = "uid://bqpgegfy4cg57"

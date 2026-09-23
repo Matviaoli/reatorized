@@ -19,3 +19,13 @@ extends StructureTile
 # ====================
 func _init() -> void:
 	type = structureType.REACTOR
+
+
+# ====================
+# Get Heat/Energy
+# ====================
+func get_energy_output(daylight: float) -> float:
+	return energyProduction
+
+func get_heat_output(daylight: float) -> float:
+	return heatProduction

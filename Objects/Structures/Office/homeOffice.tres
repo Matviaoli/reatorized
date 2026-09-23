@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OfficeStructure" format=3 uid="uid://d3av7bjvdidmk"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_ruxhy"]
+[ext_resource type="Script" uid="uid://dtufvwg10bylj" path="res://Scripts/Structure/Definers/OfficeStructure.gd" id="2_1h2ts"]
+
+[resource]
+script = ExtResource("2_1h2ts")
+energyConvert = 1000.0
+type = 4
+price = 300.0
+id = &"home_office"
+display_name = "Home Office"
+atlas_coords = Vector2i(2, 15)
+metadata/_custom_type_script = "uid://dtufvwg10bylj"

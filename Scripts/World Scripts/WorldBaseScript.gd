@@ -22,10 +22,11 @@ const STRUCTURE_LAYER_SCENE := preload("res://Scripts/TileLayer/StructureLayer.t
 @export var tile_size := Vector2i(16, 16)
 @export var start_zoom := 3.0
 @export var starting_money := 100.0
-@export var terrain_texture : Texture2D = preload("res://Visual/TileMaps/TerrainTilemapBeta.png")
-@export var structures_texture : Texture2D = preload("res://Visual/TileMaps/StructuresTileMapBeta.png")
-@export var terrain_folder := "res://Objects/Terrain/"
-@export var structures_folder := "res://Objects/Structures/"
+@export var starting_time := 900
+@export var terrain_texture: Texture2D = preload("res://Visual/TileMaps/TerrainTilemapBeta.png")
+@export var structures_texture: Texture2D = preload("res://Visual/TileMaps/StructuresTileMapBeta.png")
+@export_dir var terrain_folder := "res://Objects/Terrain"
+@export_dir var structures_folder := "res://Objects/Structures"
 
 
 # ====================
@@ -36,6 +37,7 @@ var structures: StructureLayer
 var simulation : Simulation
 var camera : WorldCamera
 var hud : Hud
+var day_tint : CanvasModulate
 
 var _tool : StringName = Hud.TOOL_NONE
 
@@ -52,6 +54,7 @@ func _ready() -> void:
 	simulation = Simulation.new()
 	simulation.structures = structures
 	simulation.money = starting_money
+	simulation.time = starting_time
 	simulation.exploded.connect(_on_exploded)
 	
 	add_child(simulation)
@@ -72,8 +75,19 @@ func _ready() -> void:
 	hud.setup(_get_buildables())
 	hud.tool_selected.connect(func(id: StringName) -> void: _tool = id)
 	
+	day_tint = CanvasModulate.new()
+	add_child(day_tint)
+	
 	_generate()
 
+func _process(_delta: float) -> void:
+	if simulation == null:
+		return
+	var d := simulation.get_daylight()
+	# noite azulada -> dia branco, com um leve alaranjado no meio do caminho
+	var night := Color(0.25, 0.3, 0.55)
+	var noon := Color(1.0, 1.0, 1.0)
+	day_tint.color = night.lerp(noon, d)
 
 # ====================
 # Generate

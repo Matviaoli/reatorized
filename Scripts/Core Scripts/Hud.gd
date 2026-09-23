@@ -80,8 +80,9 @@ func _process(delta : float) -> void:
 	if simulation == null:
 		return
 	
-	_stats.text = "energia %d/%d  |  Dinheiro %d  |  Poluição %.1f  |  Ciência %d" % [
-		int(simulation.energy), int(simulation.maxEnergy), int(simulation.money), simulation.GlobalPollution, int(simulation.science)]
+	_stats.text = "energia %d/%d  |  Dinheiro %d  |  Poluição %.1f  |  Ciência %d  |  Horário: %02d:%02d" % [
+		int(simulation.energy), int(simulation.maxEnergy), int(simulation.money), simulation.GlobalPollution, int(simulation.science),
+		simulation.clock[0], simulation.clock[1]]
 
 
 # ====================

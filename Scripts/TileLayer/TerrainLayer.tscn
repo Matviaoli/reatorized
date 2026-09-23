@@ -4,5 +4,4 @@
 
 [node name="TerrainLayer" type="TileMapLayer" unique_id=1755938437]
 script = ExtResource("1_rmi2w")
-definitions_folder = "res://Objects/Terrain"
 metadata/_custom_type_script = "uid://dmjplxabqdwju"

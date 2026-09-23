@@ -4,5 +4,4 @@
 
 [node name="StructureLayer" type="TileMapLayer" unique_id=454603130]
 script = ExtResource("1_oj6om")
-definitions_folder = "res://Objects/Structures"
 metadata/_custom_type_script = "uid://dmjplxabqdwju"

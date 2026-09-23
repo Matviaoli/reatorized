@@ -113,8 +113,8 @@ func _produce() -> void:
 		if reactor == null:
 			continue
 		
-		energy += reactor.energyProduction * TICK
-		structures.heat[cell] += reactor.heatProduction * TICK
+		energy += reactor.get_energy_output(get_daylight()) * TICK
+		structures.heat[cell] += reactor.get_heat_output(get_daylight()) * TICK
 		
 		if pollution_generates:
 			GlobalPollution += reactor.pollutionProduction * TICK
@@ -220,6 +220,13 @@ func buy_structure(cell: Vector2i, id: StringName) -> bool:
 	money -= def.price
 	return true
 
+# ====================
+# Get day light
+# ====================
+func get_daylight() -> float:
+	var progress := fmod(float(time), float(DAYCYCLE)) / float(DAYCYCLE)
+	
+	return -cos(progress * TAU)
 
 # ====================
 # Explode

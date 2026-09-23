@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SolarBasedReactorStructure" format=3 uid="uid://duqpo8dq844ea"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_3qrd7"]
+[ext_resource type="Script" uid="uid://c31n5pnlwooef" path="res://Scripts/Structure/Definers/Reactors/SolarBasedReactors.gd" id="2_s85c5"]
+
+[resource]
+script = ExtResource("2_s85c5")
+heatProduction = 100.0
+type = 1
+price = 250.0
+explosionPower = 3.0
+maxHeat = 500.0
+id = &"solar_reactor"
+display_name = "Solar Reactor"
+atlas_coords = Vector2i(1, 15)
+metadata/_custom_type_script = "uid://c31n5pnlwooef"
