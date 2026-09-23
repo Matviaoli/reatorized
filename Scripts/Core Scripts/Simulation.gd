@@ -24,6 +24,15 @@ const TICK = 1.0
 
 
 # ====================
+# Debug options
+# ====================
+var infinity_money := false
+var time_cycle := true
+var pollution_generates := true
+var allow_explosions := true
+
+
+# ====================
 # Variables
 # ====================
 const DAYCYCLE := 3600
@@ -68,12 +77,19 @@ func _tick() -> void:
 	_clean_and_research()
 	_time_processing()
 	energy = minf(energy, maxEnergy)
+	
+	if infinity_money:
+		money = 1999999999
 
 
 # ====================
 # Time processing
 # ====================
 func _time_processing() -> void:
+	
+	if not time_cycle:
+		return
+	
 	time += TICK * TIMECONVERTION
 	if time > DAYCYCLE:
 		time -= DAYCYCLE
@@ -99,7 +115,9 @@ func _produce() -> void:
 		
 		energy += reactor.energyProduction * TICK
 		structures.heat[cell] += reactor.heatProduction * TICK
-		GlobalPollution += reactor.pollutionProduction * TICK
+		
+		if pollution_generates:
+			GlobalPollution += reactor.pollutionProduction * TICK
 
 
 # ====================
@@ -130,6 +148,9 @@ func _convert_heat() -> void:
 # Check overheat
 # ====================
 func _check_overheat() -> void:
+	if not allow_explosions:
+		return
+	
 	var overheated: Array[Vector2i] = []
 	for cell in  structures.heat:
 		
