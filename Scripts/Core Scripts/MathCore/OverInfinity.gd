@@ -49,7 +49,7 @@ func clone() -> OverInfinity:
 
 
 # ====================
-# Normalizar
+# Normalizar & set from
 # ====================
 func _normalize() -> void:
 	if mantissa == 0.0:
@@ -63,6 +63,10 @@ func _normalize() -> void:
 	while absf(mantissa) < 1.0:
 		mantissa *= 10
 		exponent -= 1
+
+func set_from(other: OverInfinity) -> void:
+	mantissa = other.mantissa
+	exponent = other.exponent
 
 
 # ====================
@@ -82,35 +86,37 @@ func _sing() -> int:
 # ====================
 # --- add ---
 func add(other: OverInfinity) -> OverInfinity:
+	_normalize()
+	other._normalize()
+	
 	if mantissa == 0.0:
 		return other.clone()
-	
 	if other.mantissa == 0.0:
-		return clone() # não vou mentir, acho bem estranho isso no gdscript de não precisar de um self.clone()
-	
+		return clone()
+
 	if exponent < other.exponent:
 		return other.add(self)
-	
+
 	var diff := exponent - other.exponent
-	var result := OverInfinity.new()
-	
-	if diff > 17: # self >>>>>> other, dá para descartar
+
+	if diff > 17:
 		return clone()
-	
-	result.mantissa = mantissa / pow(10.0, diff)
+
+	var result := OverInfinity.new()
+	result.mantissa = mantissa + other.mantissa * pow(10.0, -diff)
 	result.exponent = exponent
 	result._normalize()
-	
+
 	return result
 
 # --- subtract ---
 func subtract(other: OverInfinity) -> OverInfinity:
-	var negated := other.clone()
-	negated.mantissa = -negated.mantissa
-	return add(negated)
+	return add(other.negate())
 
 # --- mutiply scalar ---
 func multiply_scalar(factor: float) -> OverInfinity:
+	_normalize()
+	
 	if factor == 0.0 or mantissa == 0.0:
 		return OverInfinity.zero()
 	
@@ -123,6 +129,9 @@ func multiply_scalar(factor: float) -> OverInfinity:
 
 # --- multiply ---
 func mutiply(other: OverInfinity) -> OverInfinity:
+	_normalize()
+	other._normalize()
+	
 	if mantissa == 0.0 or other.mantissa == 0.0:
 		return OverInfinity.zero()
 	
@@ -135,6 +144,9 @@ func mutiply(other: OverInfinity) -> OverInfinity:
 
 # --- division ---
 func division(other: OverInfinity) -> OverInfinity:
+	_normalize()
+	other._normalize()
+	
 	if other.mantissa == 0.0:
 		push_error("Tá tentando dividir por 0 amigo?")
 		return OverInfinity.zero()
@@ -155,6 +167,9 @@ func division(other: OverInfinity) -> OverInfinity:
 # ====================
 # --- comparation ---
 func compare(other: OverInfinity) -> int:
+	_normalize()
+	other._normalize()
+	
 	var selfSing := _sing()
 	var otherSing := other._sing()
 	
@@ -175,24 +190,101 @@ func compare(other: OverInfinity) -> int:
 
 # --- Less than ---
 func less_than(other: OverInfinity) -> bool:
+	_normalize()
+	other._normalize()
+	
 	return compare(other) < 0
 
 # --- less or equal ---
 func less_or_equal(other: OverInfinity) -> bool:
+	_normalize()
+	other._normalize()
+	
 	return compare(other) <= 0
 
 # --- equal ---
 func equal(other: OverInfinity) -> bool:
+	_normalize()
+	other._normalize()
+	
 	return compare(other) == 0
 
 # --- greater ---
-func geater(other: OverInfinity) -> bool:
+func greater_than(other: OverInfinity) -> bool:
+	_normalize()
+	other._normalize()
+	
 	return compare(other) > 0
 
 # --- greater or equal ---
-func greater_or_equal(other) -> bool:
+func greater_or_equal(other: OverInfinity) -> bool:
+	_normalize()
+	other._normalize()
+	
 	return compare(other) >= 0
 
+
+# ====================
+# Math Utilits
+# ====================
+# --- min ---
+func minOF(other: OverInfinity) -> OverInfinity:
+	_normalize()
+	other._normalize()
+	
+	if greater_or_equal(other):
+		return other.clone()
+	else:
+		return clone()
+
+# --- max ---
+func maxOF(other: OverInfinity) -> OverInfinity:
+	_normalize()
+	other._normalize()
+	
+	if greater_or_equal(other):
+		return clone()
+	else:
+		return other.clone()
+
+# --- clamp ---
+func clampOF(min_value: OverInfinity, max_value: OverInfinity) -> OverInfinity:
+	_normalize()
+	min_value._normalize()
+	max_value._normalize()
+	
+	if less_than(min_value):
+		return min_value.clone()
+
+	if greater_than(max_value):
+		return max_value.clone()
+	
+	return clone()
+
+# --- negate ---
+func negate() -> OverInfinity:
+	var result := clone()
+	result.mantissa = -result.mantissa
+	return result
+
+# -- absolute ---
+func absOF() -> OverInfinity:
+	var result := clone()
+	result.mantissa = absf(result.mantissa)
+	
+	return result
+
+# --- is zero ---
+func is_zero() -> bool:
+	return mantissa == 0.0
+
+# --- is positive ---
+func is_positive() -> bool:
+	return mantissa > 0.0
+
+# --- is negative ---
+func is_negative() -> bool:
+	return mantissa < 0.0
 
 # ====================
 # Out
@@ -204,6 +296,7 @@ func to_float() -> float:
 # --- display ---
 
 func to_display_string(decimals: int = 2) -> String:
+	_normalize()
 	if mantissa == 0.0 or exponent < 3:
 		return "%.*f" % [decimals, to_float()]
 	
@@ -220,6 +313,7 @@ func to_display_string(decimals: int = 2) -> String:
 # ====================
 # --- to save ---
 func to_save_data() -> Array:
+	_normalize()
 	return [mantissa, exponent]
 
 # --- to load ---
@@ -227,5 +321,6 @@ static func to_load(data: Array) -> OverInfinity:
 	var n := OverInfinity.new()
 	n.mantissa = float(data[0])
 	n.exponent = int(data[1])
+	n._normalize()
 	
 	return n

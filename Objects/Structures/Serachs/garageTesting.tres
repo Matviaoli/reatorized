@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("2_4bbf3")
-sciencePoints = 10.0
+sciencePointsMantissa = 1.0
 type = 2
-price = 190.0
+priceMantissa = 200.0
 id = &"garage_testing"
 display_name = "Garage Testing"
 atlas_coords = Vector2i(0, 14)

@@ -26,7 +26,7 @@ const TICK = 1.0
 # ====================
 # Debug options
 # ====================
-var infinity_money := false
+var infinity_money := true
 var time_cycle := true
 var pollution_generates := true
 var allow_explosions := true
@@ -76,9 +76,8 @@ func _tick() -> void:
 	_sell()
 	_clean_and_research()
 	_time_processing()
-	if (energy.geater(maxEnergy)):
-		energy.mantissa = maxEnergy.mantissa
-		energy.exponent = maxEnergy.exponent
+	if (energy.greater_than(maxEnergy)):
+		energy.set_from(maxEnergy)
 	
 	if infinity_money:
 		money.exponent = 999999999
@@ -115,8 +114,9 @@ func _produce() -> void:
 		if reactor == null:
 			continue
 		
-		energy += reactor.get_energy_output(get_daylight()) * TICK
-		structures.heat[cell] += reactor.get_heat_output(get_daylight()) * TICK
+		energy = energy.add(reactor.get_energy_output(get_daylight()).multiply_scalar(TICK))
+		
+		structures.heat[cell] = structures.heat[cell].add(reactor.get_heat_output(get_daylight()).multiply_scalar(TICK))
 		
 		if pollution_generates:
 			GlobalPollution += reactor.pollutionProduction * TICK
@@ -132,18 +132,18 @@ func _convert_heat() -> void:
 		if gen == null:
 			continue
 		
-		var capacity := gen.heatConvert * TICK
+		var capacity := gen.get_heat_convert().multiply_scalar(TICK)
 		for n in structures.get_surrounding_cells(cell):
-			if capacity <= 0.0:
+			if capacity.less_or_equal(OverInfinity.zero()):
 				break
 			
 			if not structures.heat.has(n):
 				continue
 			
-			var taken := minf(structures.heat[n], capacity)
-			structures.heat[n] -= taken
-			capacity -= taken
-			energy += taken * heatToEnergy
+			var taken := capacity.minOF(structures.heat[n])
+			structures.heat[n] = structures.heat[n].subtract(taken)
+			capacity = capacity.subtract(taken)
+			energy = energy.add(taken.multiply_scalar(heatToEnergy))
 
 
 # ====================
@@ -158,7 +158,7 @@ func _check_overheat() -> void:
 		
 		var def := structures.get_definition_at(cell) as StructureTile
 		
-		if def.maxHeat >= 0.0 and structures.heat[cell] > def.maxHeat:
+		if def.get_max_heat().greater_or_equal(OverInfinity.zero()) and structures.heat[cell].greater_than(def.get_max_heat()):
 			overheated.append(cell)
 	
 	for cell in overheated:
@@ -174,7 +174,7 @@ func _sell() -> void:
 		var office := structures.get_definition_at(cell) as OfficeStructure
 		
 		if office:
-			sell_energy(office.energyConvert * TICK)
+			sell_energy(office.get_energy_convert().multiply_scalar(TICK))
 
 
 # ====================
@@ -192,7 +192,7 @@ func _clean_and_research() -> void:
 		var lab := def as SearchStructure
 		
 		if lab:
-			science += lab.sciencePoints * TICK
+			science = science.add(lab.get_science_points().multiply_scalar(TICK))
 
 
 # --- Support function ---
@@ -201,10 +201,10 @@ func _clean_and_research() -> void:
 # ====================
 # Sell Energy
 # ====================
-func sell_energy(amount: float) -> void:
-	var sold := minf(amount, energy)
-	energy -= sold
-	money += sold * energyPrice
+func sell_energy(amount: OverInfinity) -> void:
+	var sold := amount.minOF(energy)
+	energy = energy.subtract(sold)
+	money = money.add(sold.multiply_scalar(energyPrice))
 
 
 # ====================
@@ -213,13 +213,26 @@ func sell_energy(amount: float) -> void:
 func buy_structure(cell: Vector2i, id: StringName) -> bool:
 	var def := structures.get_definition(id) as StructureTile
 	
-	if def == null or not def.purchasable or money + credit < def.price:
+	if def == null or not def.purchasable or money.add(credit).less_than(def.get_price()):
 		return false
 	
 	if not structures.place(cell, id):
 		return false
 	
-	money -= def.price
+	print("========== COMPRA ==========")
+	print("Money: ", money.to_display_string())
+	print("Price: ", def.get_price().to_display_string())
+	print("Money < Price: ", money.less_than(def.get_price()))
+	print("Money compare Price: ", money.compare(def.get_price()))
+	print("============================")
+	
+	print("MONEY: mantissa=", money.mantissa, " exponent=", money.exponent)
+	print("PRICE: mantissa=", def.get_price().mantissa, " exponent=", def.get_price().exponent)
+	print("but def: mantissa=", def.priceMantissa, " exponent=", def.priceExponent)
+	
+	
+	money = money.subtract(def.get_price())
+	
 	return true
 
 # ====================

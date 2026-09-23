@@ -5,11 +5,11 @@
 
 [resource]
 script = ExtResource("2_s85c5")
-heatProduction = 100.0
+productionType = 0
+heatProductionMantissa = 250.0
 type = 1
-price = 250.0
+priceMantissa = 500.0
 explosionPower = 3.0
-maxHeat = 500.0
 id = &"solar_reactor"
 display_name = "Solar Reactor"
 atlas_coords = Vector2i(1, 15)

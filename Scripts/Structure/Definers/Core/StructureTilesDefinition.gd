@@ -26,16 +26,24 @@ enum structureType{
 # ====================
 @export var type := structureType.NONE
 @export var purchasable := true
-@export var price := 0.0
+@export var priceMantissa := 0.0
+@export var priceExponent := 0
 @export var blastResistance := 1.0
 @export var explosionPower := -1.0
 @export var maxHeatMantissa = -1 # -1 = nunca superaquece
-@export var maxHeatExponent := 1
+@export var maxHeatExponent := 0
 @export var allowedTerrains: Array[TerrainTile]
 
 
 # ====================
 # Get max heat 
 # ====================
-func get_mah_heat() -> OverInfinity:
+func get_max_heat() -> OverInfinity:
 	return OverInfinity.to_load([maxHeatMantissa, maxHeatExponent])
+
+
+# ====================
+# Get price
+# ====================
+func get_price() -> OverInfinity:
+	return OverInfinity.to_load([priceMantissa, priceExponent])

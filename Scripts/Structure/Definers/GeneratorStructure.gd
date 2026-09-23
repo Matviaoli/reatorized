@@ -9,7 +9,7 @@ extends StructureTile
 # Data
 # ====================
 @export var heatConvertMantissa := 0.0
-@export var heatConvertExponent := 0.0
+@export var heatConvertExponent := 0
 
 
 # ====================

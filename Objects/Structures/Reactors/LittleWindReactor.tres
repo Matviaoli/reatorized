@@ -5,10 +5,10 @@
 
 [resource]
 script = ExtResource("2_xoe3m")
-energyProduction = 10.0
+energyProductionMantissa = 10.0
 type = 1
-price = 100.0
-id = &"low+wind_reactor"
+priceMantissa = 100.0
+id = &"low_wind_reactor"
 display_name = "Little Wind Reactor"
 atlas_coords = Vector2i(0, 15)
 metadata/_custom_type_script = "uid://bws6uplw7awhc"

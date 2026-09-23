@@ -9,7 +9,7 @@ extends StructureTile
 # Data
 # ====================
 @export var sciencePointsMantissa := 0.0
-@export var sciencePointsExport := 0.0
+@export var sciencePointsExponent := 0
 
 
 # ====================
@@ -22,5 +22,5 @@ func _init() -> void:
 # ====================
 # Get search
 # ====================
-func get_mah_heat() -> OverInfinity:
-	return OverInfinity.to_load([sciencePointsMantissa, sciencePointsExport])
+func get_science_points() -> OverInfinity:
+	return OverInfinity.to_load([sciencePointsMantissa, sciencePointsExponent])

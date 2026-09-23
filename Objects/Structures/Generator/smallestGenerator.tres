@@ -5,9 +5,10 @@
 
 [resource]
 script = ExtResource("2_8d3h7")
-heatConvert = 100.0
+heatConvertMantissa = 25.0
 type = 6
-price = 10.0
+priceMantissa = 25.0
+maxHeatMantissa = 1000
 id = &"smalest_generator"
 display_name = "Smallest Generator"
 atlas_coords = Vector2i(3, 15)

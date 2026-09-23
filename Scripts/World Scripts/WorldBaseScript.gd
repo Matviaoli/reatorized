@@ -21,7 +21,8 @@ const STRUCTURE_LAYER_SCENE := preload("res://Scripts/TileLayer/StructureLayer.t
 @export var world_size := Vector2i(50, 50)
 @export var tile_size := Vector2i(16, 16)
 @export var start_zoom := 3.0
-@export var starting_money := 100.0
+@export var starting_money_mantissa := 100.0
+@export var starting_money_exponent := 0
 @export var starting_time := 900
 @export var terrain_texture: Texture2D = preload("res://Visual/TileMaps/TerrainTilemapBeta.png")
 @export var structures_texture: Texture2D = preload("res://Visual/TileMaps/StructuresTileMapBeta.png")
@@ -53,7 +54,9 @@ func _ready() -> void:
 	
 	simulation = Simulation.new()
 	simulation.structures = structures
-	simulation.money = starting_money
+	simulation.money = OverInfinity.to_load([starting_money_mantissa, starting_money_exponent])
+	print("dinheiro inicial registrado: " + simulation.money.to_display_string())
+	print(simulation.money.mantissa + simulation.money.exponent)
 	simulation.time = starting_time
 	simulation.exploded.connect(_on_exploded)
 	
@@ -136,7 +139,7 @@ func _get_buildables() -> Array[StructureTile]:
 		if structure and structure.purchasable:
 			out.append(structure)
 			
-	out.sort_custom(func(a: StructureTile, b: StructureTile) -> bool: return a.price < b.price)
+	out.sort_custom(func(a: StructureTile, b: StructureTile) -> bool: return a.get_price().less_than(b.get_price()))
 	return out
 
 # ====================
@@ -164,7 +167,7 @@ func _why_not(cell: Vector2i, id: StringName) -> String:
 		return "Já tem uma estrutura aí"
 	
 	if not structures.can_place(cell, id):
-		return "Não dá para construir '%d' nesse terreno" % [structures.definitions[id].display_name]
+		return "Não dá para construir '%s' nesse terreno" % [structures.definitions[id].display_name]
 	
 	return "Dinehiro insuficiente"
 

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://geeii4hapn83"]
+
+[ext_resource type="Script" uid="uid://ipsdjjt25ghd" path="res://Objects/Worlds/Grassland.gd" id="1_rh28a"]
+
+[node name="WorldBase" type="Node2D" unique_id=1172933271]
+script = ExtResource("1_rh28a")

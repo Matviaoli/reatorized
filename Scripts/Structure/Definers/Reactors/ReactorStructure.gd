@@ -9,11 +9,11 @@ extends StructureTile
 # Data
 # ====================
 @export var energyProductionMantissa := 0.0
-@export var energyProductionExponent := 0.0
+@export var energyProductionExponent := 0
 @export var heatProductionMantissa := 0.0
-@export var heatProductionExponent := 0.0
+@export var heatProductionExponent := 0
 @export var passiveDissipationMantissa := 0.0
-@export var passiveDissipationExponent := 0.0
+@export var passiveDissipationExponent := 0
 @export var pollutionProduction := 0.0
 
 

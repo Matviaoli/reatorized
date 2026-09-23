@@ -1,6 +1,3 @@
-# ====================
-# Class & Extend
-# ====================
 class_name Hud
 extends CanvasLayer
 
@@ -18,14 +15,14 @@ const FONT_SIZE := 22
 # ====================
 # Variables
 # ====================
-var simulation : Simulation
+var simulation: Simulation
 
-var _stats : Label
-var _message : Label
-var _bar : HBoxContainer
+var _stats: Label
+var _message: Label
+var _bar: HBoxContainer
 var _buttons := {}
-var _selected : StringName = TOOL_NONE
-var _tween : Tween
+var _selected: StringName = TOOL_NONE
+var _tween: Tween
 
 
 # ====================
@@ -35,25 +32,26 @@ func _ready() -> void:
 	var root := MarginContainer.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
+
 	for side in ["left", "top", "right", "bottom"]:
 		root.add_theme_constant_override("margin_" + side, 8)
-	
+
 	add_child(root)
-	
-	var columm := VBoxContainer.new()
-	columm.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_child(columm)
-	
+
+	var column := VBoxContainer.new()
+	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(column)
+
 	_stats = _make_label()
-	columm.add_child(_stats)
+	column.add_child(_stats)
+
 	_message = _make_label()
-	columm.add_child(_message)
-	
+	column.add_child(_message)
+
 	var scroll := ScrollContainer.new()
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	columm.add_child(scroll)
-	
+	column.add_child(scroll)
+
 	_bar = HBoxContainer.new()
 	scroll.add_child(_bar)
 
@@ -63,26 +61,37 @@ func _ready() -> void:
 # ====================
 func setup(buildables: Array[StructureTile]) -> void:
 	var sell := _make_button("Vender energia")
-	sell.pressed.connect(func() -> void: simulation.sell_energy(simulation.energy))
+	sell.pressed.connect(func() -> void:
+		simulation.sell_energy(simulation.energy)
+	)
 	_bar.add_child(sell)
-	
+
 	_add_tool_button(TOOL_DEMOLISH, "Demolir")
-	
+
 	for def in buildables:
 		var label := def.display_name if not def.display_name.is_empty() else String(def.id)
-		_add_tool_button(def.id, "%s (%d)" % [label, int(def.price)])
+		_add_tool_button(
+			def.id,
+			"%s (%s)" % [label, def.get_price().to_display_string()]
+		)
 
 
 # ====================
 # Process
 # ====================
-func _process(delta : float) -> void:
+func _process(_delta: float) -> void:
 	if simulation == null:
 		return
-	
-	_stats.text = "energia %d/%d  |  Dinheiro %d  |  Poluição %.1f  |  Ciência %d  |  Horário: %02d:%02d" % [
-		int(simulation.energy), int(simulation.maxEnergy), int(simulation.money), simulation.GlobalPollution, int(simulation.science),
-		simulation.clock[0], simulation.clock[1]]
+
+	_stats.text = "Energia %s/%s  |  Dinheiro %s  |  Poluição %.1f  |  Ciência %s  |  Horário: %02d:%02d" % [
+		simulation.energy.to_display_string(),
+		simulation.maxEnergy.to_display_string(),
+		simulation.money.to_display_string(),
+		simulation.GlobalPollution,
+		simulation.science.to_display_string(),
+		simulation.clock[0],
+		simulation.clock[1]
+	]
 
 
 # ====================
@@ -91,9 +100,10 @@ func _process(delta : float) -> void:
 func show_message(text: String) -> void:
 	_message.text = text
 	_message.modulate.a = 1.0
-	
+
 	if _tween:
 		_tween.kill()
+
 	_tween = create_tween()
 	_tween.tween_interval(1.5)
 	_tween.tween_property(_message, "modulate", 0.0, 0.5)
@@ -109,26 +119,29 @@ func _add_tool_button(id: StringName, text: String) -> void:
 	_bar.add_child(button)
 	_buttons[id] = button
 
+
 func _select(id: StringName) -> void:
 	_selected = TOOL_NONE if _selected == id else id
-	
+
 	for key in _buttons:
 		_buttons[key].set_pressed_no_signal(key == _selected)
-	
+
 	tool_selected.emit(_selected)
+
 
 func _make_button(text: String) -> Button:
 	var button := Button.new()
 	button.text = text
 	button.custom_minimum_size = Vector2(0, 64)
 	button.add_theme_font_size_override("font_size", FONT_SIZE)
-	
+
 	return button
+
 
 func _make_label() -> Label:
 	var label := Label.new()
 	label.add_theme_font_size_override("font_size", FONT_SIZE)
 	label.add_theme_color_override("font_outline_color", Color.BLACK)
 	label.add_theme_constant_override("outline_size", 6)
-	
+
 	return label

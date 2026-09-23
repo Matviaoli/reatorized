@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("2_1h2ts")
-energyConvert = 1000.0
+energyConvertMantissa = 1000
 type = 4
-price = 300.0
+priceMantissa = 300.0
 id = &"home_office"
 display_name = "Home Office"
 atlas_coords = Vector2i(2, 15)
