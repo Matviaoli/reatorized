@@ -72,7 +72,7 @@ func set_from(other: OverInfinity) -> void:
 # ====================
 # Sing
 # ====================
-func _sing() -> int:
+func _sign() -> int:
 	if mantissa > 0.0:
 		return 1
 	elif mantissa < 0.0:
@@ -128,7 +128,7 @@ func multiply_scalar(factor: float) -> OverInfinity:
 	return result
 
 # --- multiply ---
-func mutiply(other: OverInfinity) -> OverInfinity:
+func multiply(other: OverInfinity) -> OverInfinity:
 	_normalize()
 	other._normalize()
 	
@@ -170,8 +170,8 @@ func compare(other: OverInfinity) -> int:
 	_normalize()
 	other._normalize()
 	
-	var selfSing := _sing()
-	var otherSing := other._sing()
+	var selfSing := _sign()
+	var otherSing := other._sign()
 	
 	if selfSing != otherSing:
 		return -1 if selfSing < otherSing else 1

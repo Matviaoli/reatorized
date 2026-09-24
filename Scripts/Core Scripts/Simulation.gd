@@ -26,7 +26,7 @@ const TICK = 1.0
 # ====================
 # Debug options
 # ====================
-var infinity_money := true
+var infinity_money := false
 var time_cycle := true
 var pollution_generates := true
 var allow_explosions := true
