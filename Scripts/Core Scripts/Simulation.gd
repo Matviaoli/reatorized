@@ -76,6 +76,9 @@ func _tick() -> void:
 	_sell()
 	_clean_and_research()
 	_time_processing()
+	if time == 900 or time == 2000:
+		structures.refresh_visual_states(get_daylight())
+		
 	if (energy.greater_than(maxEnergy)):
 		energy.set_from(maxEnergy)
 	

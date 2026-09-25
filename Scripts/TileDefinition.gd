@@ -11,3 +11,12 @@ extends Resource
 @export var display_name: String
 @export_multiline var description: String
 @export var atlas_coords: Vector2i
+
+
+# ====================
+# Visual
+# ====================
+const DEFAULT_STATE := &"default"
+
+func get_visual_state(_daylight: float) -> StringName:
+	return DEFAULT_STATE

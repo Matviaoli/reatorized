@@ -1,7 +1,19 @@
 [gd_scene format=3 uid="uid://bpienjcws4ax2"]
 
-[ext_resource type="Script" uid="uid://dhi2ghwc3xosu" path="res://Scripts/TileLayer/TerrainLayerScript.gd" id="1_rmi2w"]
+[ext_resource type="Script" uid="uid://ipsdjjt25ghd" path="res://Objects/Worlds/Grassland.gd" id="1_1axr4"]
 
-[node name="TerrainLayer" type="TileMapLayer" unique_id=1755938437]
-script = ExtResource("1_rmi2w")
-metadata/_custom_type_script = "uid://dmjplxabqdwju"
+[node name="Node2D" type="Node2D" unique_id=409260547]
+script = ExtResource("1_1axr4")
+world_id = null
+world_name = null
+debug_mode = null
+world_size = null
+tile_size = null
+start_zoom = null
+starting_money_mantissa = null
+starting_money_exponent = null
+starting_time = null
+terrain_texture = null
+structures_texture = null
+terrain_folder = null
+structures_folder = null

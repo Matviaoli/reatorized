@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwcqo3e7gqmhy"
-path="res://.godot/imported/Grass_Atlas.png-732b2f947429ab534fb9d755eee96ab7.ctex"
+uid="uid://bhqi1465f61p3"
+path="res://.godot/imported/waves.png-28f10a9c0bafcc40993325197f27dcbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Visual/Terrain/Grass_Atlas.png"
-dest_files=["res://.godot/imported/Grass_Atlas.png-732b2f947429ab534fb9d755eee96ab7.ctex"]
+source_file="res://Visual/Paper/waves.png"
+dest_files=["res://.godot/imported/waves.png-28f10a9c0bafcc40993325197f27dcbc.ctex"]
 
 [params]
 

@@ -1,0 +1,24 @@
+[gd_resource type="TileSet" format=3 uid="uid://6lqcjqafdnvv"]
+
+[ext_resource type="Texture2D" uid="uid://bcsu0pb8778tq" path="res://Visual/TileMaps/StructuresTileMapBeta.png" id="1_c88ud"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2obc5"]
+texture = ExtResource("1_c88ud")
+0:14/0 = 0
+0:14/0/custom_data_0 = "garage_testing"
+1:14/0 = 0
+0:15/0 = 0
+0:15/0/custom_data_0 = "low_wind_turbine"
+1:15/0 = 0
+1:15/0/custom_data_0 = "solar_reactor"
+2:15/0 = 0
+2:15/0/custom_data_0 = "home_office"
+3:15/0 = 0
+3:15/0/custom_data_0 = "smallest_generator"
+
+[resource]
+custom_data_layer_0/name = "ref_id"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "state"
+custom_data_layer_1/type = 4
+sources/0 = SubResource("TileSetAtlasSource_2obc5")

@@ -8,8 +8,6 @@ extends Node2D
 # ====================
 # Consts
 # ====================
-const TERRAIN_LAYER_SCENE := preload("res://Scripts/TileLayer/TerrainLayer.tscn")
-const STRUCTURE_LAYER_SCENE := preload("res://Scripts/TileLayer/StructureLayer.tscn")
 
 
 # ====================
@@ -24,17 +22,13 @@ const STRUCTURE_LAYER_SCENE := preload("res://Scripts/TileLayer/StructureLayer.t
 @export var starting_money_mantissa := 100.0
 @export var starting_money_exponent := 0
 @export var starting_time := 900
-@export var terrain_texture: Texture2D = preload("res://Visual/TileMaps/TerrainTilemapBeta.png")
-@export var structures_texture: Texture2D = preload("res://Visual/TileMaps/StructuresTileMapBeta.png")
-@export_dir var terrain_folder := "res://Objects/Terrain"
-@export_dir var structures_folder := "res://Objects/Structures"
 
 
 # ====================
 # Variables
 # ====================
-var terrain : TerrainLayer
-var structures: StructureLayer
+@onready var terrain : TerrainLayer = $TerrainLayer
+@onready var structures : StructureLayer = $StructureLayer
 var simulation : Simulation
 var camera : WorldCamera
 var hud : Hud
@@ -47,16 +41,13 @@ var _tool : StringName = Hud.TOOL_NONE
 # Wake up
 # ====================
 func _ready() -> void:
-	terrain = _make_layer(TERRAIN_LAYER_SCENE, terrain_texture, terrain_folder) as TerrainLayer
-	structures = _make_layer(STRUCTURE_LAYER_SCENE, structures_texture, structures_folder) as StructureLayer
-	
 	structures.terrainLayer = terrain
+	terrain.import_painted_cells()
+	structures.import_painted_cells()
 	
 	simulation = Simulation.new()
 	simulation.structures = structures
 	simulation.money = OverInfinity.to_load([starting_money_mantissa, starting_money_exponent])
-	print("dinheiro inicial registrado: " + simulation.money.to_display_string())
-	print(simulation.money.mantissa + simulation.money.exponent)
 	simulation.time = starting_time
 	simulation.exploded.connect(_on_exploded)
 	
@@ -101,35 +92,6 @@ func _generate() -> void:
 # ====================
 # Assemblying
 # ====================
-func _make_layer(scene: PackedScene, texture : Texture2D, folder: String) -> BaseTileMapLayer:
-	var layer := scene.instantiate() as BaseTileMapLayer
-	layer.definitions_folder = folder
-	layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	
-	if layer.tile_set == null:
-		layer.tile_set = _make_tileset(texture)
-	
-	add_child(layer)
-	
-	return layer
-
-func _make_tileset(texture: Texture2D) -> TileSet:
-	var atlas := TileSetAtlasSource.new()
-	atlas.texture = texture
-	atlas.texture_region_size = tile_size
-	var cols := floori(float(texture.get_width()) / tile_size.x)
-	var rows := floori(float(texture.get_height()) / tile_size.y)
-	
-	for x in cols:
-		for y in rows:
-			atlas.create_tile(Vector2i(x, y))
-	
-	var tile_set := TileSet.new()
-	tile_set.tile_size = tile_size
-	tile_set.add_source(atlas, BaseTileMapLayer.SOURCE_ID)
-	
-	return tile_set
-
 func _get_buildables() -> Array[StructureTile]:
 	var out: Array[StructureTile] = []
 	

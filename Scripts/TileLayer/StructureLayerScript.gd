@@ -7,6 +7,8 @@ extends BaseTileMapLayer
 # ====================
 # Variables
 # ====================
+
+
 var terrainLayer: TerrainLayer
 var heat := {}  # Vector2i -> OverInfinity
 
@@ -34,6 +36,10 @@ func can_place(cell: Vector2i, id: StringName) -> bool:
 # ====================
 func _apply_cell(cell: Vector2i, id: StringName) -> void:
 	super._apply_cell(cell, id)
+	heat[cell] = OverInfinity.zero()
+
+func _register(cell: Vector2i, id: StringName) -> void:
+	super._register(cell, id)
 	heat[cell] = OverInfinity.zero()
 
 

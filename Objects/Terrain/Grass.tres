@@ -5,9 +5,6 @@
 [resource]
 script = ExtResource("1_t20pq")
 buildable = true
-blastResistance = 2
 id = &"grass"
 display_name = "Grass"
-description = "A plain with grass"
-atlas_coords = Vector2i(1, 2)
 metadata/_custom_type_script = "uid://kc4d8af6ndkm"

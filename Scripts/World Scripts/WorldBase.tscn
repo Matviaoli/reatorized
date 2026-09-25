@@ -1,6 +1,23 @@
 [gd_scene format=3 uid="uid://geeii4hapn83"]
 
-[ext_resource type="Script" uid="uid://ipsdjjt25ghd" path="res://Objects/Worlds/Grassland.gd" id="1_rh28a"]
+[ext_resource type="Script" uid="uid://bm4o1785aemtx" path="res://Scripts/World Scripts/WorldBaseScript.gd" id="1_oys08"]
+[ext_resource type="Script" uid="uid://dhi2ghwc3xosu" path="res://Scripts/TileLayer/TerrainLayerScript.gd" id="2_4smos"]
+[ext_resource type="TileSet" uid="uid://besnkbqxlfes8" path="res://Visual/TileSets/TerrainTileSet.tres" id="2_oys08"]
+[ext_resource type="Script" uid="uid://iawtu5n6c5kc" path="res://Scripts/TileLayer/StructureLayerScript.gd" id="3_oys08"]
+[ext_resource type="TileSet" uid="uid://6lqcjqafdnvv" path="res://Visual/TileSets/StructuresTileSet.tres" id="4_muycy"]
 
 [node name="WorldBase" type="Node2D" unique_id=1172933271]
-script = ExtResource("1_rh28a")
+script = ExtResource("1_oys08")
+
+[node name="TerrainLayer" type="TileMapLayer" parent="." unique_id=402920677]
+texture_filter = 1
+tile_set = ExtResource("2_oys08")
+script = ExtResource("2_4smos")
+definitions_folder = "res://Objects/Terrain"
+metadata/_custom_type_script = "uid://dhi2ghwc3xosu"
+
+[node name="StructureLayer" type="TileMapLayer" parent="." unique_id=1177565503]
+tile_set = ExtResource("4_muycy")
+script = ExtResource("3_oys08")
+definitions_folder = "res://Objects/Structures"
+metadata/_custom_type_script = "uid://iawtu5n6c5kc"

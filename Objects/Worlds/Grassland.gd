@@ -10,9 +10,9 @@ extends WorldBase
 # ====================
 func _generate() -> void:
 	if not terrain.definitions.has(&"grass"):
-		push_error("Nenhum terreno com id 'grass' foi encontrado em " + terrain_folder)
+		push_error("Nenhum terreno com id 'grass' foi encontrado em ")
 		return
 
-	for x in world_size.x:
-		for y in world_size.y:
-			terrain.place(Vector2i(x, y), &"grass")
+#	for x in world_size.x:
+#		for y in world_size.y:
+#			terrain.place(Vector2i(x, y), &"grass")
