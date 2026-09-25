@@ -35,10 +35,10 @@ var allow_explosions := true
 # ====================
 # Variables
 # ====================
-const DAYCYCLE := 3600
-const HOUR := 150
-const INITIALTIME := 900
-const TIMECONVERTION := 12
+const DAYCYCLE := 36000
+const HOUR := 1500
+const INITIALTIME := 9000
+const TIMECONVERTION := 120
 
 var time := 0
 var days := 1
@@ -95,7 +95,7 @@ func _time_processing() -> void:
 		return
 	
 	time += TICK * TIMECONVERTION
-	if time > DAYCYCLE:
+	if time >= DAYCYCLE:
 		time -= DAYCYCLE
 		days += 1
 	
@@ -221,18 +221,6 @@ func buy_structure(cell: Vector2i, id: StringName) -> bool:
 	
 	if not structures.place(cell, id):
 		return false
-	
-	print("========== COMPRA ==========")
-	print("Money: ", money.to_display_string())
-	print("Price: ", def.get_price().to_display_string())
-	print("Money < Price: ", money.less_than(def.get_price()))
-	print("Money compare Price: ", money.compare(def.get_price()))
-	print("============================")
-	
-	print("MONEY: mantissa=", money.mantissa, " exponent=", money.exponent)
-	print("PRICE: mantissa=", def.get_price().mantissa, " exponent=", def.get_price().exponent)
-	print("but def: mantissa=", def.priceMantissa, " exponent=", def.priceExponent)
-	
 	
 	money = money.subtract(def.get_price())
 	

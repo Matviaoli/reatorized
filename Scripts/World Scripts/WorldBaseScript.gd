@@ -21,7 +21,7 @@ extends Node2D
 @export var start_zoom := 3.0
 @export var starting_money_mantissa := 100.0
 @export var starting_money_exponent := 0
-@export var starting_time := 900
+@export var starting_time := 9000
 
 
 # ====================
@@ -33,6 +33,7 @@ var simulation : Simulation
 var camera : WorldCamera
 var hud : Hud
 var day_tint : CanvasModulate
+var waves : WaveOcean
 
 var _tool : StringName = Hud.TOOL_NONE
 
@@ -69,8 +70,16 @@ func _ready() -> void:
 	hud.setup(_get_buildables())
 	hud.tool_selected.connect(func(id: StringName) -> void: _tool = id)
 	
+	waves = WaveOcean.new()
+	waves.terrain_layer = terrain
+	waves.wave_texture = preload("res://Visual/Paper/Wave.png")
+	#waves.background_texture = preload("res://Visual/Paper/background.jpg")
+	add_child(waves)
+	waves.setup(world_size, tile_size)
+	
 	day_tint = CanvasModulate.new()
 	add_child(day_tint)
+	
 	
 	_generate()
 

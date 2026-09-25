@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cgy0f1i2gs0m7" path="res://Visual/Terrain/SandAtlas.png" id="2_pd1ec"]
 [ext_resource type="Texture2D" uid="uid://dya4yvxx2bima" path="res://Visual/Terrain/StoneAtlas.png" id="3_c04v1"]
 [ext_resource type="Texture2D" uid="uid://lhjyiwxl42ol" path="res://Visual/Terrain/WaterFlow.png" id="4_milx7"]
+[ext_resource type="Texture2D" uid="uid://diojftnuuy0yv" path="res://Visual/Terrain/GrassAtlas32.png" id="5_pd1ec"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2vxrj"]
 resource_name = "GrassAtlas"
@@ -106,6 +107,43 @@ texture = ExtResource("4_milx7")
 1:0/0 = 0
 2:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c04v1"]
+texture = ExtResource("5_pd1ec")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+24:1/0 = 0
+25:1/0 = 0
+
 [resource]
 custom_data_layer_0/name = "def_id"
 custom_data_layer_0/type = 4
@@ -115,3 +153,4 @@ sources/0 = SubResource("TileSetAtlasSource_2vxrj")
 sources/1 = SubResource("TileSetAtlasSource_8bceb")
 sources/2 = SubResource("TileSetAtlasSource_1ypx2")
 sources/4 = SubResource("TileSetAtlasSource_jkoc5")
+sources/5 = SubResource("TileSetAtlasSource_c04v1")

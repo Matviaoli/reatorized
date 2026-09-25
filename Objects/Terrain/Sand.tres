@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TerrainTile" format=3 uid="uid://coinnn8ehh5yx"]
+
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_wmkx2"]
+
+[resource]
+script = ExtResource("1_wmkx2")
+buildable = true
+id = &"sand"
+display_name = "Sand"
+metadata/_custom_type_script = "uid://kc4d8af6ndkm"
