@@ -8,7 +8,7 @@ extends Node2D
 # ====================
 # Consts
 # ====================
-
+const HUD_SCENE := preload("res://Scripts/Core Scripts/Interface/Hud.tscn")
 
 # ====================
 # Configs
@@ -31,11 +31,14 @@ extends Node2D
 @onready var structures : StructureLayer = $StructureLayer
 var simulation : Simulation
 var camera : WorldCamera
-var hud : Hud
 var day_tint : CanvasModulate
 var waves : WaveOcean
+var placement : PlacementController
+var hud : Hud
 
 var _tool : StringName = Hud.TOOL_NONE
+var _last_painted_cell : Vector2i
+var _has_last_painted_cell := false
 
 
 # ====================
@@ -51,35 +54,36 @@ func _ready() -> void:
 	simulation.money = OverInfinity.to_load([starting_money_mantissa, starting_money_exponent])
 	simulation.time = starting_time
 	simulation.exploded.connect(_on_exploded)
-	
 	add_child(simulation)
 	
 	camera = WorldCamera.new()
 	camera.set_bounds(Rect2i(Vector2i.ZERO, world_size * tile_size))
 	camera.zoom = Vector2.ONE * start_zoom
-	camera.tapped.connect(_on_tap)
-	
 	add_child(camera)
 	camera.make_current()
 	
-	hud = Hud.new()
+	placement = PlacementController.new()
+	placement.terrain = terrain
+	placement.structures = structures
+	placement.simulation = simulation
+	placement.tile_size = tile_size
+	add_child(placement)
+	
+	hud = HUD_SCENE.instantiate()
 	hud.simulation = simulation
-	
+	hud.placement = placement
 	add_child(hud)
-	
 	hud.setup(_get_buildables())
-	hud.tool_selected.connect(func(id: StringName) -> void: _tool = id)
+	hud.tool_selected.connect(_on_tool_selected)
 	
 	waves = WaveOcean.new()
 	waves.terrain_layer = terrain
 	waves.wave_texture = preload("res://Visual/Paper/Wave.png")
-	#waves.background_texture = preload("res://Visual/Paper/background.jpg")
 	add_child(waves)
 	waves.setup(world_size, tile_size)
 	
 	day_tint = CanvasModulate.new()
 	add_child(day_tint)
-	
 	
 	_generate()
 
@@ -116,31 +120,97 @@ func _get_buildables() -> Array[StructureTile]:
 # ====================
 # Interactions
 # ====================
-func _on_tap(world_position: Vector2) -> void:
-	var cell := terrain.local_to_map(terrain.to_local(world_position))
-	
-	if not  terrain.data.has(cell):
+func _on_tool_selected(id: StringName) -> void:
+	_tool = id
+	placement.set_tool(id)
+	camera.input_enabled = id == Hud.TOOL_NONE
+
+func _unhandled_input(event: InputEvent) -> void:
+	if _tool == Hud.TOOL_NONE:
 		return
 	
-	match _tool:
-		Hud.TOOL_NONE:
-			return
-		
-		Hud.TOOL_DEMOLISH:
-			structures.remove(cell)
-		
-		_:
-			if not simulation.buy_structure(cell, _tool):
-				hud.show_message(_why_not(cell, _tool))
+	# ===== MOUSE =====
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if event.pressed:
+					_start_paint(get_global_mouse_position(), true)   # true = adicionar
+				else:
+					_has_last_painted_cell = false
+			
+			MOUSE_BUTTON_RIGHT:
+				if event.pressed:
+					_start_paint(get_global_mouse_position(), false)  # false = remover
+				else:
+					_has_last_painted_cell = false
+	
+	elif event is InputEventMouseMotion:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			_drag_paint(get_global_mouse_position(), true)
+		elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			_drag_paint(get_global_mouse_position(), false)
+		else:
+			_has_last_painted_cell = false
+	
+	# ===== TOUCH (celular) =====
+	elif event is InputEventScreenTouch:
+		if event.pressed:
+			# Dedo único = pintar (adicionar)
+			_start_paint(event.position, true)
+		else:
+			_has_last_painted_cell = false
+	
+	elif event is InputEventScreenDrag:
+		_drag_paint(event.position, true)
 
-func _why_not(cell: Vector2i, id: StringName) -> String:
-	if structures.data.has(cell):
-		return "Já tem uma estrutura aí"
+func _start_paint(world_pos: Vector2, add: bool) -> void:
+	var cell := terrain.local_to_map(terrain.to_local(world_pos))
+	_try_paint_cell(cell, add)
+	_last_painted_cell = cell
+	_has_last_painted_cell = true
+
+func _drag_paint(world_pos: Vector2, add: bool) -> void:
+	var cell := terrain.local_to_map(terrain.to_local(world_pos))
 	
-	if not structures.can_place(cell, id):
-		return "Não dá para construir '%s' nesse terreno" % [structures.definitions[id].display_name]
+	if not _has_last_painted_cell:
+		_try_paint_cell(cell, add)
+		_last_painted_cell = cell
+		_has_last_painted_cell = true
+		return
 	
-	return "Dinehiro insuficiente"
+	if cell == _last_painted_cell:
+		return
+	
+	for c in _cells_between(_last_painted_cell, cell):
+		_try_paint_cell(c, add)
+	
+	_last_painted_cell = cell
+
+func _try_paint_cell(cell: Vector2i, add: bool) -> void:
+	if terrain.data.has(cell):
+		placement.handle_click(cell, add)
+
+# Bresenham simples entre duas células (exclui a origem, inclui o destino)
+func _cells_between(from: Vector2i, to: Vector2i) -> Array[Vector2i]:
+	var out: Array[Vector2i] = []
+	var dx := absi(to.x - from.x)
+	var dy := -absi(to.y - from.y)
+	var sx := 1 if from.x < to.x else -1
+	var sy := 1 if from.y < to.y else -1
+	var err := dx + dy
+	var cur := from
+	
+	while cur != to:
+		var e2 := err * 2
+		if e2 >= dy:
+			err += dy
+			cur.x += sx
+		if e2 <= dx:
+			err += dx
+			cur.y += sy
+		out.append(cur)
+	
+	return out
 
 func _on_exploded(cell: Vector2i, _power: float) -> void:
 	hud.show_message("Explosão em %d, %d" % [cell.x, cell.y])

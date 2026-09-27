@@ -21,7 +21,7 @@ enum Quality { OFF, LOW, MEDIUM, HIGH }
 @export var lane_spacing := 32.0
 @export var bob_amplitude := 3.0
 @export var bob_speed := 1.5
-@export var y_jitter_amplitude := 4.0
+@export var y_jitter_amplitude := 10.0
 @export var excluded_ids : Array[StringName] = [&"beach"]
 @export var min_speed := -30.0
 @export var max_speed := 30.0
@@ -29,8 +29,8 @@ enum Quality { OFF, LOW, MEDIUM, HIGH }
 @export var front_z_indez := 1
 @export var horizontal_hitbox_bonus := 16.0
 @export var occlusion_samples := 3
-@export var vertical_hitbox_size := 16.0     # altura da área testada, centrada no occlusion_offset
-@export var vertical_samples := 2            # quantas linhas dentro dessa altura são checadas (mín. 1)
+@export var vertical_hitbox_size := 16.0 
+@export var vertical_samples := 2
 
 @export var background_texture : Texture2D
 
@@ -178,6 +178,7 @@ func _grow_pool(target: int) -> void:
 		sp.texture = wave_texture
 		sp.visible = false
 		sp.z_as_relative = true
+		sp.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		add_child(sp)
 		_pool.append(sp)
 
@@ -345,6 +346,6 @@ func _draw() -> void:
 		var sprite_rect: Rect2 = box.sprite
 		var color := Color(1.0, 0.2, 0.2, 0.35) if box.occluded else Color(0.2, 1.0, 0.2, 0.25)
  
-		draw_rect(hb, color, true)                       # área testada (com bônus)
+		draw_rect(hb, color, true)                     
 		draw_rect(hb, color.lightened(0.4), false, 1.0)
-		draw_rect(sprite_rect, Color.YELLOW, false, 1.0)  # tamanho visual do sprite, pra comparar
+		draw_rect(sprite_rect, Color.YELLOW, false, 1.0)  

@@ -11,5 +11,4 @@ priceMantissa = 25.0
 maxHeatMantissa = 1000
 id = &"smallest_generator"
 display_name = "Smallest Generator"
-atlas_coords = Vector2i(3, 15)
 metadata/_custom_type_script = "uid://bqpgegfy4cg57"

@@ -12,5 +12,4 @@ priceMantissa = 500.0
 explosionPower = 3.0
 id = &"solar_reactor"
 display_name = "Solar Reactor"
-atlas_coords = Vector2i(1, 15)
 metadata/_custom_type_script = "uid://c31n5pnlwooef"

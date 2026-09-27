@@ -10,7 +10,7 @@
 [node name="Node2D" type="Node2D" unique_id=409260547]
 script = ExtResource("1_oj87e")
 world_id = &"betalands"
-world_size = Vector2i(75, 75)
+world_size = Vector2i(45, 63)
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1882664661]
 z_index = -2
@@ -19,7 +19,6 @@ repeat_size = Vector2(116, 66)
 repeat_times = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1736093535]
-texture_filter = 1
 texture = ExtResource("2_jyrpb")
 
 [node name="TerrainLayer" type="TileMapLayer" parent="." unique_id=1721200900]

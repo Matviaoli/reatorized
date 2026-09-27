@@ -32,11 +32,11 @@ class TileVisual:
 # ====================
 @export_dir var definitions_folder: String
 
-var definitions:= {}
-var data := {}
+var definitions:= {} # StringName -> TileDefinitions
+var data := {} # Vector2i -> StringName
 
-var states := {}
-var _visuals:= {}
+var states := {} # Vector2i -> String
+var _visuals:= {} # 
 
 
 # ====================
@@ -89,16 +89,19 @@ func _build_visual_index() -> void:
 	_visuals.clear()
 	
 	if tile_set == null:
-		print("SEM TILE_SET")
+		push_warning("tile set não configurado!")
 		return
 	
 	var id_layer := tile_set.get_custom_data_layer_by_name(CUSTOM_ID)
-	print("indice da camada def_id: ", id_layer)
 	
 	if id_layer == -1:
+		push_warning("TileSet '%s' não tem a custom data layer '%s'" % [tile_set, CUSTOM_ID])
 		return
 	
 	var has_state := tile_set.get_custom_data_layer_by_name(CUSTOM_STATE) != -1
+	
+	if tile_set.get_source_count() <= 0:
+		push_warning("O tile set '%s' não tem nenhum atlas" % [tile_set])
 	
 	for i in tile_set.get_source_count():
 		var source_id := tile_set.get_source_id(i)
@@ -107,15 +110,13 @@ func _build_visual_index() -> void:
 		if atlas == null:
 			continue
 		
-		print("fonte ", source_id, " tem ", atlas.get_tiles_count(), " tiles")
-		
 		for t in atlas.get_tiles_count():
 			var coords := atlas.get_tile_id(t)
 			var tile_data := atlas.get_tile_data(coords, 0)
 			var id := StringName(tile_data.get_custom_data(CUSTOM_ID))
-			print("  tile ", coords, " def_id='", id, "'")
 			
 			if id == &"":
+				push_warning("Tile %s (fonte %d) não possui id" % [coords, source_id])
 				continue
 			
 			if not definitions.has(id):
@@ -137,8 +138,6 @@ func _build_visual_index() -> void:
 				_visuals[id][state] = []
 			
 			_visuals[id][state].append(TileVisual.new(source_id, coords))
-
-	
 
 
 # ====================

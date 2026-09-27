@@ -30,6 +30,7 @@ var infinity_money := false
 var time_cycle := true
 var pollution_generates := true
 var allow_explosions := true
+var auto_build := false
 
 
 # ====================
