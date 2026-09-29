@@ -17,6 +17,7 @@ signal changed
 var terrain: TerrainLayer
 var structures: StructureLayer
 var simulation: Simulation
+var regionsManager : RegionsManager
 var tile_size := Vector2i(16, 16)
 
 var tool: StringName = &""
@@ -73,13 +74,19 @@ func handle_click(cell: Vector2i, add: bool) -> void:
 
 # --- Paint ---
 func _paint(cell: Vector2i, add: bool) -> void:
+	if not regionsManager.is_cell_unlocked(cell):
+		return
+	
 	if add:
 		if tool == Hud.TOOL_DEMOLISH:
 			if not structures.data.has(cell):
 				return
+			
 		elif not structures.can_place(cell, tool):
 			return
+		
 		pending[cell] = true
+		
 	else:
 		pending.erase(cell)
 	

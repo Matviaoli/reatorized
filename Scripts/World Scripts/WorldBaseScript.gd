@@ -22,6 +22,7 @@ const HUD_SCENE := preload("res://Scripts/Core Scripts/Interface/Hud.tscn")
 @export var starting_money_mantissa := 100.0
 @export var starting_money_exponent := 0
 @export var starting_time := 9000
+@export_dir var regions_folder : String
 
 
 # ====================
@@ -35,6 +36,7 @@ var day_tint : CanvasModulate
 var waves : WaveOcean
 var placement : PlacementController
 var hud : Hud
+var regionsManager : RegionsManager
 
 var _tool : StringName = Hud.TOOL_NONE
 var _last_painted_cell : Vector2i
@@ -62,10 +64,16 @@ func _ready() -> void:
 	add_child(camera)
 	camera.make_current()
 	
+	regionsManager = RegionsManager.new()
+	regionsManager.world_folder = regions_folder
+	regionsManager.name = "RegionsManager"
+	regionsManager.setup()
+	
 	placement = PlacementController.new()
 	placement.terrain = terrain
 	placement.structures = structures
 	placement.simulation = simulation
+	placement.regionsManager = regionsManager
 	placement.tile_size = tile_size
 	add_child(placement)
 	

@@ -1,7 +1,7 @@
 # ====================
 # Class & Extend
 # ====================
-class_name GrasslandWorld
+class_name Betalands
 extends WorldBase
 
 

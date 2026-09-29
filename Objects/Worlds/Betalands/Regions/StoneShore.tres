@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Regions" format=3 uid="uid://cg6ejgekeu6a"]
+
+[ext_resource type="Script" uid="uid://dgevfxtva8kh6" path="res://Scripts/World Scripts/RegionsBase.gd" id="1_rchfb"]
+
+[resource]
+script = ExtResource("1_rchfb")
+id = &"stone_shore_region"
+region_name = "Stone Shore"
+description = "Um espaço de pedra"
+unlocked_by_default = false
+mantissaPrice = 1.75
+exponentPrice = 2
+region_area = Array[Rect2i]([Rect2i(32, 9, 56, 17), Rect2i(32, 18, 44, 22)])
+metadata/_custom_type_script = "uid://dgevfxtva8kh6"
