@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Regions" format=3 uid="uid://wetwlkhcb7ce"]
 
-[ext_resource type="Script" uid="uid://dgevfxtva8kh6" path="res://Scripts/World Scripts/RegionsBase.gd" id="1_p5j5v"]
+[ext_resource type="Script" uid="uid://dgevfxtva8kh6" path="res://Scripts/World Scripts/Regions/RegionsBase.gd" id="1_p5j5v"]
 [ext_resource type="Resource" uid="uid://cg6ejgekeu6a" path="res://Objects/Worlds/Betalands/Regions/StoneShore.tres" id="2_ielsv"]
 
 [resource]
@@ -12,5 +12,5 @@ unlocked_by_default = false
 mantissaPrice = 2.0
 exponentPrice = 1
 needed_regions = Array[ExtResource("1_p5j5v")]([ExtResource("2_ielsv")])
-region_area = Array[Rect2i]([Rect2i(66, 20, 86, 0)])
+region_area = Array[Rect2i]([Rect2i(66, 20, 86, 29)])
 metadata/_custom_type_script = "uid://dgevfxtva8kh6"

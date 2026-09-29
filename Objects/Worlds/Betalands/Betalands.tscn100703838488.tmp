@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cgnrcfsmtr4kq"]
 
 [ext_resource type="Script" uid="uid://ipsdjjt25ghd" path="res://Objects/Worlds/Betalands/Betalands.gd" id="1_ijoq4"]
-[ext_resource type="Texture2D" uid="uid://dwpvhrtp2j244" path="res://Visual/Paper/Waves/Paper_backgound(placeholder).png" id="2_ijoq4"]
+[ext_resource type="Texture2D" uid="uid://bfd8vu7pq7opn" path="res://Visual/Paper/Waves/pixel_wave_background.png" id="2_ijoq4"]
 [ext_resource type="TileSet" uid="uid://besnkbqxlfes8" path="res://Visual/TileSets/TerrainTileSet.tres" id="3_pyqj8"]
 [ext_resource type="Script" uid="uid://dhi2ghwc3xosu" path="res://Scripts/TileLayer/Terrain/TerrainLayerScript.gd" id="4_ijoq4"]
 [ext_resource type="TileSet" uid="uid://6lqcjqafdnvv" path="res://Visual/TileSets/StructuresTileSet.tres" id="5_t6twa"]
@@ -16,10 +16,11 @@ regions_folder = "res://Objects/Worlds/"
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1882664661]
 z_index = -2
 texture_filter = 1
-repeat_size = Vector2(1536, 1024)
-repeat_times = 25
+repeat_size = Vector2(116, 66)
+repeat_times = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1736093535]
+texture_filter = 1
 texture = ExtResource("2_ijoq4")
 
 [node name="TerrainLayer" type="TileMapLayer" parent="." unique_id=1721200900]
@@ -35,6 +36,3 @@ tile_set = ExtResource("5_t6twa")
 script = ExtResource("6_ijoq4")
 definitions_folder = "res://Objects/Structures"
 metadata/_custom_type_script = "uid://iawtu5n6c5kc"
-
-[node name="CloudLayer" type="Node2D" parent="." unique_id=2017467780]
-z_index = 7

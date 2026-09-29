@@ -8,7 +8,7 @@ extends Node2D
 # ====================
 # Consts
 # ====================
-const HUD_SCENE := preload("res://Scripts/Core Scripts/Interface/Hud.tscn")
+const HUD_SCENE := preload("res://Scripts/Core Scripts/Interface/Core_UI/Hud.tscn")
 
 # ====================
 # Configs
@@ -23,6 +23,7 @@ const HUD_SCENE := preload("res://Scripts/Core Scripts/Interface/Hud.tscn")
 @export var starting_money_exponent := 0
 @export var starting_time := 9000
 @export_dir var regions_folder : String
+var unlock_popup: RegionUnlockPopup
 
 
 # ====================
@@ -37,6 +38,7 @@ var waves : WaveOcean
 var placement : PlacementController
 var hud : Hud
 var regionsManager : RegionsManager
+var cloud_layer : CloudLayer
 
 var _tool : StringName = Hud.TOOL_NONE
 var _last_painted_cell : Vector2i
@@ -69,6 +71,17 @@ func _ready() -> void:
 	regionsManager.name = "RegionsManager"
 	regionsManager.setup()
 	
+	cloud_layer = CloudLayer.new()
+	cloud_layer.name = "CloudLayer"
+	cloud_layer.regionsManager = regionsManager
+	cloud_layer.clouds_folder = "res://Visual/Paper/Clouds"  # sua pasta
+	cloud_layer.terrain = terrain
+	cloud_layer.tileSize = tile_size
+	cloud_layer.z_index = 7
+	add_child(cloud_layer)
+	cloud_layer.setup()
+	move_child(cloud_layer, get_child_count() - 1)
+	
 	placement = PlacementController.new()
 	placement.terrain = terrain
 	placement.structures = structures
@@ -86,7 +99,7 @@ func _ready() -> void:
 	
 	waves = WaveOcean.new()
 	waves.terrain_layer = terrain
-	waves.wave_texture = preload("res://Visual/Paper/Wave.png")
+	waves.wave_texture = preload("res://Visual/Paper/Waves/Wave(placeholder).png")
 	add_child(waves)
 	waves.setup(world_size, tile_size)
 	

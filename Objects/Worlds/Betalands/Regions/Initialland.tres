@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Regions" format=3 uid="uid://b3nhp7t0hrkg2"]
+
+[ext_resource type="Script" uid="uid://dgevfxtva8kh6" path="res://Scripts/World Scripts/Regions/RegionsBase.gd" id="1_8118u"]
+
+[resource]
+script = ExtResource("1_8118u")
+id = &"initland"
+region_name = "StarsLands"
+description = "some grass, good start"
+region_area = Array[Rect2i]([Rect2i(6, 20, 25, 33), Rect2i(21, 29, 47, 44), Rect2i(48, 33, 62, 38)])
+metadata/_custom_type_script = "uid://dgevfxtva8kh6"

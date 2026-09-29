@@ -17,7 +17,7 @@ enum Quality { OFF, LOW, MEDIUM, HIGH }
 @export var debug_hitboxes := false
 @export var terrain_layer : TerrainLayer
 @export var wave_texture : Texture2D
-@export var wave_size := Vector2(128, 32)
+@export var wave_size := Vector2(2164, 727)
 @export var lane_spacing := 32.0
 @export var bob_amplitude := 3.0
 @export var bob_speed := 1.5
@@ -31,6 +31,7 @@ enum Quality { OFF, LOW, MEDIUM, HIGH }
 @export var occlusion_samples := 3
 @export var vertical_hitbox_size := 16.0 
 @export var vertical_samples := 2
+@export var waves_scale := 0.10
 
 @export var background_texture : Texture2D
 
@@ -98,6 +99,7 @@ func _process(delta: float) -> void:
 # Step
 # ====================
 func setup(map_size: Vector2i, tile_size: Vector2i) -> void:
+	wave_size = wave_size * waves_scale
 	_map_rect = Rect2(Vector2.ZERO, Vector2(map_size * tile_size))
 	
 	_lanes.clear()
@@ -179,6 +181,7 @@ func _grow_pool(target: int) -> void:
 		sp.visible = false
 		sp.z_as_relative = true
 		sp.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		sp.scale = Vector2.ONE * waves_scale
 		add_child(sp)
 		_pool.append(sp)
 

@@ -24,14 +24,6 @@ var price := OverInfinity.zero()
 
 
 # ====================
-# Wake up
-# ====================
-func _init() -> void:
-	price.mantissa = mantissaPrice
-	price.exponent = exponentPrice
-
-
-# ====================
 # Helpers
 # ====================
 # --- Contains cell ---
@@ -73,3 +65,7 @@ func can_unlock(current_unlocked: Array[StringName], money: OverInfinity) -> boo
 			return false
 	
 	return true
+
+# --- Get price ---
+func get_price() -> OverInfinity:
+	return OverInfinity.to_load([mantissaPrice, exponentPrice])

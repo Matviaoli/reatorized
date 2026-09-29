@@ -20,7 +20,7 @@ signal region_changed()
 
 
 # ====================
-# State
+# Variables
 # ====================
 var unlocked: Array[StringName] = []
 
@@ -34,6 +34,7 @@ func setup() -> void:
 		return
 	
 	_load_regions_from_folder(world_folder)
+	_shut_the_fuck_up()
 	_initialize_unlocked()
 
 
@@ -149,7 +150,6 @@ func try_unlock(region_id: StringName, money: OverInfinity) -> bool:
 	
 	unlocked.append(region.id)
 	region_unlocked.emit(region.id)
-	region_changed.emit()
 	return true
 
 # ====================
@@ -175,3 +175,21 @@ func get_all_locked_cells() -> Array[Vector2i]:
 		cells.append_array(region.get_all_cells())
 	
 	return cells
+
+
+# ====================
+# Shut the fuck up
+# ====================
+func _shut_the_fuck_up() -> void:
+	for region in regions:
+		if region == null:
+			continue
+		
+		for i in region.region_area.size():
+			var rec: Rect2i = region.region_area[i]
+			rec.size = Vector2i(rec.size.x - rec.position.x, rec.size.y - rec.position.y)
+			
+			if rec.size.x <= 0 or rec.size.y <= 0:
+				push_warning("Região '%s' gerou size inválido: %s" % [region.id, rec])
+				
+			region.region_area[i] = rec

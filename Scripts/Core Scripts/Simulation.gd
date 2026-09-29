@@ -14,7 +14,7 @@ signal exploded(cell: Vector2i, power: float)
 # ====================
 # Tick
 # ====================
-const TICK = 1.0
+const TICK = 0.5
 
 
 # ====================

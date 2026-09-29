@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ReactorStructure" format=3 uid="uid://dmenji5k2ufi3"]
 
-[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_xoe3m"]
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Tiles/Terrain/Definers/TerrainTilesDefinition.gd" id="1_xoe3m"]
 [ext_resource type="Texture2D" uid="uid://cxts52bf6pen6" path="res://Visual/Structures/Rotors/little_wind_rotor.png" id="2_tfyq0"]
-[ext_resource type="Script" uid="uid://bws6uplw7awhc" path="res://Scripts/Structure/Definers/Reactors/ReactorStructure.gd" id="2_xoe3m"]
+[ext_resource type="Script" uid="uid://bws6uplw7awhc" path="res://Scripts/Tiles/Structure/Definers/Reactors/ReactorStructure.gd" id="2_xoe3m"]
 
 [resource]
 script = ExtResource("2_xoe3m")

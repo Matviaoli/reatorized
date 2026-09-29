@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SolarBasedReactorStructure" format=3 uid="uid://duqpo8dq844ea"]
 
-[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_3qrd7"]
-[ext_resource type="Script" uid="uid://c31n5pnlwooef" path="res://Scripts/Structure/Definers/Reactors/SolarBasedReactors.gd" id="2_s85c5"]
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Tiles/Terrain/Definers/TerrainTilesDefinition.gd" id="1_3qrd7"]
+[ext_resource type="Script" uid="uid://c31n5pnlwooef" path="res://Scripts/Tiles/Structure/Definers/Reactors/SolarBasedReactors.gd" id="2_s85c5"]
 
 [resource]
 script = ExtResource("2_s85c5")

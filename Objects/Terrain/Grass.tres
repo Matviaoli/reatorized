@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TerrainTile" format=3 uid="uid://bik8rlndaptfj"]
 
-[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Terrain/Definers/TerrainTilesDefinition.gd" id="1_t20pq"]
+[ext_resource type="Script" uid="uid://kc4d8af6ndkm" path="res://Scripts/Tiles/Terrain/Definers/TerrainTilesDefinition.gd" id="1_t20pq"]
 
 [resource]
 script = ExtResource("1_t20pq")

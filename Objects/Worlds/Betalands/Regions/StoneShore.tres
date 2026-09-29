@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Regions" format=3 uid="uid://cg6ejgekeu6a"]
 
-[ext_resource type="Script" uid="uid://dgevfxtva8kh6" path="res://Scripts/World Scripts/RegionsBase.gd" id="1_rchfb"]
+[ext_resource type="Script" uid="uid://dgevfxtva8kh6" path="res://Scripts/World Scripts/Regions/RegionsBase.gd" id="1_rchfb"]
 
 [resource]
 script = ExtResource("1_rchfb")

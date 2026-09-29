@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfmea711le7rl"
-path="res://.godot/imported/PaperBar.png-ccdc65f40889e288729ff1c027752f32.ctex"
+uid="uid://cukaxqal8u5gv"
+path="res://.godot/imported/Cloud(placeholder).png-b59ee2ae01bbde86c875ebd0fe9a1d67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Visual/Paper/PaperBar.png"
-dest_files=["res://.godot/imported/PaperBar.png-ccdc65f40889e288729ff1c027752f32.ctex"]
+source_file="res://Visual/Paper/Clouds/Cloud(placeholder).png"
+dest_files=["res://.godot/imported/Cloud(placeholder).png-b59ee2ae01bbde86c875ebd0fe9a1d67.ctex"]
 
 [params]
 

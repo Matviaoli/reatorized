@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfd8vu7pq7opn"
-path="res://.godot/imported/pixel_wave_background.png-3d6b2c691eb701ad7e7c17b73749926d.ctex"
+uid="uid://dwpvhrtp2j244"
+path="res://.godot/imported/Paper_backgound(placeholder).png-74067529ef99d48590d9714cac7c7a38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Visual/Paper/pixel_wave_background.png"
-dest_files=["res://.godot/imported/pixel_wave_background.png-3d6b2c691eb701ad7e7c17b73749926d.ctex"]
+source_file="res://Visual/Paper/Waves/Paper_backgound(placeholder).png"
+dest_files=["res://.godot/imported/Paper_backgound(placeholder).png-74067529ef99d48590d9714cac7c7a38.ctex"]
 
 [params]
 

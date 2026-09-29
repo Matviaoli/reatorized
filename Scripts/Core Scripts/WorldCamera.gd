@@ -22,16 +22,16 @@ var input_enabled := true
 
 # Para touch (índice do dedo que está arrastando)
 var _touch_index: int = -1
+var _world_rect := Rect2i()
 
 # ====================
 # Bounds
 # ====================
 func set_bounds(rect: Rect2i) -> void:
-	limit_left = rect.position.x
-	limit_top = rect.position.y
-	limit_right = rect.end.x
-	limit_bottom = rect.end.y
+	_world_rect = rect
 	position = Vector2(rect.get_center())
+	_update_limits()
+
 
 # ====================
 # Zoom
@@ -39,7 +39,35 @@ func set_bounds(rect: Rect2i) -> void:
 func _zoom_by(factor: float) -> void:
 	var z := clampf(zoom.x * factor, MIN_ZOOM, MAX_ZOOM)
 	zoom = Vector2(z, z)
+	_update_limits()
 
+func _update_limits() -> void:
+	if _world_rect.size == Vector2i.ZERO:
+		limit_enabled = false
+		return
+	
+	var view := get_viewport_rect().size / zoom
+	var world := Vector2(_world_rect.size)
+	var center := Vector2(_world_rect.get_center())
+	
+	limit_enabled = true
+	
+	# Eixo X
+	if view.x >= world.x:
+		# Visão maior que o mundo → trava no centro
+		limit_left = int(center.x)
+		limit_right = int(center.x)
+	else:
+		limit_left = _world_rect.position.x
+		limit_right = _world_rect.end.x
+	
+	# Eixo Y
+	if view.y >= world.y:
+		limit_top = int(center.y)
+		limit_bottom = int(center.y)
+	else:
+		limit_top = _world_rect.position.y
+		limit_bottom = _world_rect.end.y
 # ====================
 # Input
 # ====================
