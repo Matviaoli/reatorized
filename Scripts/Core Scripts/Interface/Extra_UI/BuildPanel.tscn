@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://hdwbemlpb6ia"]
+
+[ext_resource type="Script" uid="uid://20blbp8bjglj" path="res://Scripts/Core Scripts/Interface/Extra_UI/BuildPanel.gd" id="1_klrmu"]
+
+[node name="BuildPanel" type="PanelContainer" unique_id=781851929]
+offset_right = 424.0
+offset_bottom = 648.0
+script = ExtResource("1_klrmu")
+metadata/_custom_type_script = "uid://20blbp8bjglj"
+
+[node name="BuildColumn" type="VBoxContainer" parent="." unique_id=1908332015]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BuildColumn" unique_id=801025798]
+layout_mode = 2
+
+[node name="ExitBuild" type="Button" parent="BuildColumn/HBoxContainer" unique_id=350052336]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit
+"
+
+[node name="AutoBuildToggle" type="CheckButton" parent="BuildColumn/HBoxContainer" unique_id=1830885566]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Instant Build"
+
+[node name="SubstituteModeToggle" type="CheckButton" parent="BuildColumn/HBoxContainer" unique_id=80008006]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Substitute
+"
+
+[node name="CategoriesBox" type="VBoxContainer" parent="BuildColumn" unique_id=1089709454]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StructuresBox" type="VBoxContainer" parent="BuildColumn" unique_id=802113598]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InfoBox" type="VBoxContainer" parent="BuildColumn" unique_id=1717171858]
+unique_name_in_owner = true
+layout_mode = 2

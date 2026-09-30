@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://g1am08muq8f7"]
+
+[ext_resource type="Script" uid="uid://bmkgma3bwwe5e" path="res://Scripts/Core Scripts/Interface/Extra_UI/SideBar.gd" id="1_fmao7"]
+
+[node name="Sidebar" type="PanelContainer" unique_id=1045820510]
+offset_right = 193.0
+offset_bottom = 361.0
+script = ExtResource("1_fmao7")
+metadata/_custom_type_script = "uid://bmkgma3bwwe5e"
+
+[node name="SidebarButtons" type="VBoxContainer" parent="." unique_id=1625628108]
+layout_mode = 2
+
+[node name="BuildButton" type="Button" parent="SidebarButtons" unique_id=1015334105]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Building"
+
+[node name="DemolishButton" type="Button" parent="SidebarButtons" unique_id=1561413028]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Demolish"
+
+[node name="ResearchButton" type="Button" parent="SidebarButtons" unique_id=1264784093]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Research"
+
+[node name="UpgradesButton" type="Button" parent="SidebarButtons" unique_id=1015624580]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrades
+"
+
+[node name="InfoButton" type="Button" parent="SidebarButtons" unique_id=495407315]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Info"
+
+[node name="ConfigButton" type="Button" parent="SidebarButtons" unique_id=1606496975]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Config
+"

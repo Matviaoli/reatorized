@@ -180,7 +180,7 @@ func _grow_pool(target: int) -> void:
 		sp.texture = wave_texture
 		sp.visible = false
 		sp.z_as_relative = true
-		sp.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		#sp.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		sp.scale = Vector2.ONE * waves_scale
 		add_child(sp)
 		_pool.append(sp)

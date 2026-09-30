@@ -23,7 +23,6 @@ const HUD_SCENE := preload("res://Scripts/Core Scripts/Interface/Core_UI/Hud.tsc
 @export var starting_money_exponent := 0
 @export var starting_time := 9000
 @export_dir var regions_folder : String
-var unlock_popup: RegionUnlockPopup
 
 
 # ====================

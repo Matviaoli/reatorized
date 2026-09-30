@@ -206,6 +206,8 @@ func _clean_and_research() -> void:
 # Sell Energy
 # ====================
 func sell_energy(amount: OverInfinity) -> void:
+	if amount.is_zero():
+		return
 	var sold := amount.minOF(energy)
 	energy = energy.subtract(sold)
 	money = money.add(sold.multiply_scalar(energyPrice))
